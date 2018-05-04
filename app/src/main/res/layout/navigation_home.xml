@@ -1,27 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/home_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:orientation="vertical">
+    android:paddingTop="@dimen/activity_vertical_margin">
 
-    <TextView
-        android:id="@+id/home_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:textColor="@color/white"
-        android:text="@string/main_text_home" />
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/title_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
+        <TextView
+            android:id="@+id/home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/person_item_height"
+            android:gravity="center_vertical"
+            android:text="@string/main_text_home"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/iv_nv_flag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_nv_enter_white"
+            app:layout_constraintBottom_toBottomOf="@+id/home_title"
+            app:layout_constraintStart_toEndOf="@+id/home_title"
+            app:layout_constraintTop_toTopOf="@+id/home_title" />
+    </android.support.constraint.ConstraintLayout>
+
+    <com.inno.home.widget.SlideEditRecycleView
         android:id="@+id/rv_home_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/activity_horizontal_margin"
-        android:fadingEdge="none">
+        android:fadingEdge="none"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/title_view">
 
-    </android.support.v7.widget.RecyclerView>
-</LinearLayout>
+    </com.inno.home.widget.SlideEditRecycleView>
+</android.support.constraint.ConstraintLayout>

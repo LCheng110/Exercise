@@ -1,4 +1,4 @@
-package com.inno.home;
+package com.inno.home.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,12 +6,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.inno.home.R;
 import com.inno.home.adapter.viewholder.SlideEditViewHolder;
-import com.inno.home.listen.click.OnItemClickListener;
 
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.DeviceListViewHolder> {
-
-    private OnItemClickListener onItemClickListener;
 
     @Override
     public DeviceListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -29,10 +27,6 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
         return 6;
     }
 
-    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
-        this.onItemClickListener = onItemClickListener;
-    }
-
     public class DeviceListViewHolder extends SlideEditViewHolder {
         TextView tv_device_name;
 
@@ -43,14 +37,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
 
         public void bind(final int position) {
 //            tv_device_name.setText(String.valueOf(position));
-            tv_device_name.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (onItemClickListener != null) {
-                        onItemClickListener.onItemClick(v, position);
-                    }
-                }
-            });
+
         }
     }
 }

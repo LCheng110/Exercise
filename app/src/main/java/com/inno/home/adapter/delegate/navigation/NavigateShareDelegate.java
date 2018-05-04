@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.adapter.delegate.BaseDelegateAdapter;
 import com.inno.home.model.navigate.ShareModel;
@@ -36,6 +37,12 @@ public class NavigateShareDelegate extends BaseDelegateAdapter {
         @Override
         public void bind(ShareModel model) {
             share_source.setText(model.shareName);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.showSharedDetail(v.getContext());
+                }
+            });
         }
     }
 }

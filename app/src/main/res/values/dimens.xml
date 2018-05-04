@@ -28,6 +28,7 @@
 
     <!-- 列表编辑 -->
     <dimen name="item_edit_hide_width">-180dp</dimen>
+    <dimen name="item_edit_hide_width_single">-90dp</dimen>
     <dimen name="item_edit_width">90dp</dimen>
     <dimen name="item_edit_height">50dp</dimen>
 

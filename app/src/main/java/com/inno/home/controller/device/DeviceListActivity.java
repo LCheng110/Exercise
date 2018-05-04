@@ -3,7 +3,7 @@ package com.inno.home.controller.device;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
-import com.inno.home.DeviceListAdapter;
+import com.inno.home.adapter.DeviceListAdapter;
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
 import com.inno.home.listen.click.OnItemClickListener;
@@ -32,7 +32,7 @@ public class DeviceListActivity extends BaseActivity {
     protected void initView() {
         rv_device_list.setLayoutManager(layoutManager = new LinearLayoutManager(context));
         rv_device_list.setAdapter(adapter = new DeviceListAdapter());
-        adapter.setOnItemClickListener(new OnItemClickListener() {
+        rv_device_list.setOnItemClick(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 

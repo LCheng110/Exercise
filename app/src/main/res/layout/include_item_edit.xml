@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tool="http://schemas.android.com/tools"
+    android:id="@+id/ll_item_root"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_gravity="end"
     android:layout_marginEnd="@dimen/item_edit_hide_width"
     android:orientation="horizontal">
@@ -17,7 +17,7 @@
         android:minWidth="@dimen/item_edit_width"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_title_menu"
-        tool:text="@string/app_name" />
+        android:text="@string/edit_item_accept" />
 
     <TextView
         android:id="@+id/tv_item_delete"
@@ -29,5 +29,5 @@
         android:minWidth="@dimen/item_edit_width"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_title_menu"
-        tool:text="@string/app_name" />
+        android:text="@string/edit_item_delete" />
 </LinearLayout>

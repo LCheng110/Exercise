@@ -5,10 +5,8 @@
 
     <TextView
         android:id="@+id/tv_device_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/activity_horizontal_margin"
-        android:text="@string/product_text_smoke"/>
+        style="@style/PersonItemStyle"
+        android:text="@string/product_text_smoke" />
 
-    <include layout="@layout/include_item_edit"/>
+    <include layout="@layout/include_item_edit" />
 </FrameLayout>

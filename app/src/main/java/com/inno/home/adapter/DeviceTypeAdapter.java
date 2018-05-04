@@ -23,7 +23,8 @@ public class DeviceTypeAdapter extends RecyclerView.Adapter<DeviceTypeAdapter.De
 
     @Override
     public DeviceTypeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new DeviceTypeViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_type, parent, false));
+        return new DeviceTypeViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_device_type, parent, false));
     }
 
     @Override

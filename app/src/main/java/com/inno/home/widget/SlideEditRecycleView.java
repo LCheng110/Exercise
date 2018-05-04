@@ -41,6 +41,7 @@ public class SlideEditRecycleView extends RecyclerView {
     private boolean isItemMoving; // item 是否正在移动中
     private boolean isStartScroll; // 是否开始滑动状态
     private boolean isListDragging; // 是否说列表上下滑动拖拽
+    private boolean isSingle; // 是否是单个编辑item
 
     public SlideEditRecycleView(Context context) {
         this(context, null);
@@ -55,6 +56,25 @@ public class SlideEditRecycleView extends RecyclerView {
         mScroller = new Scroller(context, new DecelerateInterpolator());
         mVelocityTracker = VelocityTracker.obtain();
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+    }
+
+    public void setOnItemClick(OnItemClickListener onItemClick) {
+        this.onItemClick = onItemClick;
+    }
+
+    public void setSingle(boolean single) {
+        isSingle = single;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent e) {
+        return true;
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        requestDisallowInterceptTouchEvent(true);
+        return super.dispatchTouchEvent(ev);
     }
 
     @Override
@@ -72,8 +92,11 @@ public class SlideEditRecycleView extends RecyclerView {
                 if (mLayoutStatus == LAYOUT_STATE_HIDE) {
                     mItemLayout = viewHolder.itemView;
                     mPosition = viewHolder.getAdapterPosition();
-
-                    mLayoutLength = (int) Math.abs(getResources().getDimension(R.dimen.item_edit_hide_width));
+                    if (isSingle) {
+                        mLayoutLength = (int) Math.abs(getResources().getDimension(R.dimen.item_edit_hide_width_single));
+                    } else {
+                        mLayoutLength = (int) Math.abs(getResources().getDimension(R.dimen.item_edit_hide_width));
+                    }
                     viewHolder.setOnEditListener(new OnClickListener() {
                         @Override
                         public void onClick(View v) {

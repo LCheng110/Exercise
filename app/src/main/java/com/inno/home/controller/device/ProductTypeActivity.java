@@ -2,6 +2,7 @@ package com.inno.home.controller.device;
 
 import android.view.View;
 
+import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
 
@@ -35,16 +36,22 @@ public class ProductTypeActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.product_item_water:
+                Navigation.showProductConnect(context, ProductConnectActivity.PRODUCT_TYPE_WATER);
                 break;
             case R.id.product_item_motion:
+                Navigation.showProductConnect(context, ProductConnectActivity.PRODUCT_TYPE_MOTION);
                 break;
             case R.id.product_item_window:
+                Navigation.showProductConnect(context, ProductConnectActivity.PRODUCT_TYPE_WINDOW);
                 break;
             case R.id.product_item_door:
+                Navigation.showProductConnect(context, ProductConnectActivity.PRODUCT_TYPE_DOOR);
                 break;
             case R.id.product_item_person:
+                Navigation.showProductConnect(context, ProductConnectActivity.PRODUCT_TYPE_PERSON);
                 break;
             case R.id.product_item_smoke:
+                Navigation.showProductConnect(context, ProductConnectActivity.PRODUCT_TYPE_SMOKE);
                 break;
         }
     }

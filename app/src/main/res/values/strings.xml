@@ -3,8 +3,8 @@
 
     <!-- Strings related to login -->
     <string name="login_copyright">The creation or login account means that you \n agree to our User Agreement and Privacy Policy</string>
-    <string name="prompt_login">Login in</string>
-    <string name="prompt_logout">Login out</string>
+    <string name="prompt_login">Log in</string>
+    <string name="prompt_logout">Log out</string>
     <string name="prompt_sign_out">Sign out</string>
     <string name="prompt_register_name">What is your name?</string>
     <string name="prompt_register_email">Your Email Address</string>
@@ -12,11 +12,13 @@
     <string name="prompt_register_repeat">You already Have it!</string>
     <string name="prompt_forget_password">Forgot your password ?</string>
     <string name="prompt_password_reset">Reset Password</string>
+
     <string name="hint_name_first">First Name</string>
     <string name="hint_name_last">Last Name</string>
     <string name="hint_email">Enter the email address</string>
     <string name="hint_password">Password</string>
     <string name="hint_code">Enter the Code</string>
+
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Done</string>
     <string name="error_invalid_email">This email address is invalid</string>
@@ -35,6 +37,9 @@
     <string name="main_text_contact">Contact Us</string>
     <string name="main_text_device_add">Create</string>
 
+    <string name="edit_item_delete">Delete</string>
+    <string name="edit_item_accept">Accept</string>
+
     <!-- Strings related to Product -->
     <string name="product_text_title">Categories</string>
     <string name="product_text_water">Water Alarm</string>
@@ -43,6 +48,7 @@
     <string name="product_text_door">Door Alarm</string>
     <string name="product_text_person">Personal Alarm</string>
     <string name="product_text_smoke">Smoke Alarm</string>
+    <string name="product_text_start">start</string>
 
     <!-- Strings related to person -->
     <string name="person_text_title">Me</string>

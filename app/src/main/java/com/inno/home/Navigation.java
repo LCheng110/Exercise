@@ -6,12 +6,14 @@ import android.content.Intent;
 import com.inno.home.controller.MainActivity;
 import com.inno.home.controller.device.DeviceListActivity;
 import com.inno.home.controller.device.DeviceTypeActivity;
+import com.inno.home.controller.device.ProductConnectActivity;
 import com.inno.home.controller.device.ProductTypeActivity;
 import com.inno.home.controller.login.LoginActivity;
 import com.inno.home.controller.login.LoginGuideActivity;
 import com.inno.home.controller.person.EmailActivity;
-import com.inno.home.controller.person.UserInfoActivity;
 import com.inno.home.controller.person.PersonActivity;
+import com.inno.home.controller.person.SharedUserActivity;
+import com.inno.home.controller.person.UserInfoActivity;
 
 /**
  * Created by lcheng on 2018/4/8.
@@ -40,6 +42,10 @@ public class Navigation {
         context.startActivity(new Intent(context, EmailActivity.class));
     }
 
+    public static void showSharedDetail(Context context) {
+        context.startActivity(new Intent(context, SharedUserActivity.class));
+    }
+
     public static void showMain(Context context) {
         context.startActivity(new Intent(context, MainActivity.class));
     }
@@ -54,5 +60,11 @@ public class Navigation {
 
     public static void showProductType(Context context) {
         context.startActivity(new Intent(context, ProductTypeActivity.class));
+    }
+
+    public static void showProductConnect(Context context, int productType) {
+        Intent intent = new Intent(context, ProductConnectActivity.class);
+        intent.putExtra(ProductConnectActivity.PRODUCT_TYPE, productType);
+        context.startActivity(intent);
     }
 }

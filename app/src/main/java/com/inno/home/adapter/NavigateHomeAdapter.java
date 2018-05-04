@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.inno.home.R;
+import com.inno.home.adapter.viewholder.SlideEditViewHolder;
 import com.inno.home.model.navigate.HomeModel;
 
 import java.util.List;
@@ -21,7 +22,8 @@ public class NavigateHomeAdapter extends RecyclerView.Adapter<NavigateHomeAdapte
 
     @Override
     public HomeItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new HomeItemViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_nv_home, parent, false));
+        return new HomeItemViewHolder(LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_nv_home, parent, false));
     }
 
     @Override
@@ -34,12 +36,13 @@ public class NavigateHomeAdapter extends RecyclerView.Adapter<NavigateHomeAdapte
         return itemModelList != null ? itemModelList.size() : 0;
     }
 
-    public class HomeItemViewHolder extends RecyclerView.ViewHolder {
+    public class HomeItemViewHolder extends SlideEditViewHolder {
         TextView home_name;
 
         public HomeItemViewHolder(View itemView) {
             super(itemView);
             home_name = itemView.findViewById(R.id.home_name);
+            hideDeleteItem();
         }
 
         public void bind(int position) {
