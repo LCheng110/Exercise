@@ -10,6 +10,8 @@ import com.inno.home.controller.device.ProductConnectActivity;
 import com.inno.home.controller.device.ProductTypeActivity;
 import com.inno.home.controller.login.LoginActivity;
 import com.inno.home.controller.login.LoginGuideActivity;
+import com.inno.home.controller.person.AboutActivity;
+import com.inno.home.controller.person.ContactUsActivity;
 import com.inno.home.controller.person.EmailActivity;
 import com.inno.home.controller.person.PersonActivity;
 import com.inno.home.controller.person.SharedUserActivity;
@@ -38,12 +40,20 @@ public class Navigation {
         context.startActivity(new Intent(context, UserInfoActivity.class));
     }
 
+    public static void showAbout(Context context) {
+        context.startActivity(new Intent(context, AboutActivity.class));
+    }
+
     public static void showEmail(Context context) {
         context.startActivity(new Intent(context, EmailActivity.class));
     }
 
     public static void showSharedDetail(Context context) {
         context.startActivity(new Intent(context, SharedUserActivity.class));
+    }
+
+    public static void showContactUs(Context context) {
+        context.startActivity(new Intent(context, ContactUsActivity.class));
     }
 
     public static void showMain(Context context) {

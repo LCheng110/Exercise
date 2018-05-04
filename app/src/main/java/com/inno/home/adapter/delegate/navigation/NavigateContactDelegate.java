@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.adapter.delegate.BaseDelegateAdapter;
 import com.inno.home.model.navigate.ContactModel;
@@ -35,6 +36,12 @@ public class NavigateContactDelegate extends BaseDelegateAdapter {
 
         @Override
         public void bind(ContactModel model) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Navigation.showContactUs(v.getContext());
+                }
+            });
         }
     }
 }

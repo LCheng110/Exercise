@@ -63,8 +63,15 @@
     <string name="person_text_facebook">Facebook</string>
     <string name="person_text_password">Change Password</string>
 
+    <!-- Strings related to about -->
+    <string name="about_title_us">About Us</string>
+    <string name="about_title_agreement">User Agreement</string>
+    <string name="about_title_policy">Privacy Policy</string>
+    <string name="about_title_version">Version</string>
+
     <!-- Strings related to dialog -->
     <string name="prompt_modify_email">Please fill in the original password before changing the email.</string>
     <string name="text_sure">sure</string>
     <string name="text_cancel">cancel</string>
+    <string name="text_submit">Submit</string>
 </resources>

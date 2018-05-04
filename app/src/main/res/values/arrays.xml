@@ -11,6 +11,13 @@
         <item>@string/person_text_password</item>
     </string-array>
 
+    <string-array name="about_item">
+        <item>@string/about_title_us</item>
+        <item>@string/about_title_agreement</item>
+        <item>@string/about_title_policy</item>
+        <item>@string/about_title_version</item>
+    </string-array>
+
     <string-array name="device_type">
         <item>Attic</item>
         <item>Baby's Room</item>

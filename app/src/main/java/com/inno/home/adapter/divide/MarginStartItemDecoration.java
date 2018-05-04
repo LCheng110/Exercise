@@ -49,18 +49,11 @@ public class MarginStartItemDecoration extends RecyclerView.ItemDecoration {
      */
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
-        int top = divideVerSpace;
-        int bottom = divideVerSpace;
-        //如果是第一列，留出位置
-        if (isFirstRow(view, parent)) {
-            top = 0;
-        }
-        //如果是最后一行，留出位置
-        if (isLastRow(view, parent)) {
-            bottom = 0;
-        }
-        outRect.top = top;
-        outRect.bottom = bottom;
+//        //如果是最后一行，留出位置
+//        if (isLastRow(view, parent)) {
+//            bottom = 0;
+//        }
+        outRect.bottom = divideVerSpace;
     }
 
     /**
@@ -82,10 +75,8 @@ public class MarginStartItemDecoration extends RecyclerView.ItemDecoration {
             right = mChildView.getRight() + mLayoutParams.rightMargin;
             top = mChildView.getBottom() + mLayoutParams.bottomMargin;
             bottom = top + divideVerSpace;
-            if (i < mChildCount - 1) {
-                mDrawable.setBounds(left, top, right, bottom);
-                mDrawable.draw(canvas);
-            }
+            mDrawable.setBounds(left, top, right, bottom);
+            mDrawable.draw(canvas);
         }
     }
 

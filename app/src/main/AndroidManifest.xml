@@ -25,7 +25,9 @@
         <activity android:name=".controller.login.LoginActivity" />
         <activity android:name=".controller.MainActivity" />
         <activity android:name=".controller.person.PersonActivity" />
+        <activity android:name=".controller.person.AboutActivity" />
         <activity android:name=".controller.person.SharedUserActivity" />
+        <activity android:name=".controller.person.ContactUsActivity" />
         <activity
             android:name=".controller.person.UserInfoActivity"
             android:theme="@style/SearchViewStyle" />

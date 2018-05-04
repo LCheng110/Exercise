@@ -17,6 +17,7 @@ import com.inno.home.listen.click.OnItemClickListener;
 import com.inno.home.model.UserInfoModel;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,7 +57,7 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        userInfoAdapter = new UserInfoAdapter(userInfoModelList);
+        userInfoAdapter = new UserInfoAdapter(Arrays.asList(titleArray));
         rv_info_list.setLayoutManager(new LinearLayoutManager(context));
         rv_info_list.setAdapter(userInfoAdapter);
         itemDecoration = new MarginStartItemDecoration(context, R.color.colorLine,

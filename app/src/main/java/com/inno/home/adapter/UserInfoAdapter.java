@@ -18,10 +18,16 @@ import butterknife.BindView;
 
 public class UserInfoAdapter extends BaseRecycleAdapter {
 
+    private List<String> titleList;
     private List<UserInfoModel> infoModelList;
 
-    public UserInfoAdapter(List<UserInfoModel> infoModelList) {
+    public UserInfoAdapter(List<String> titleList, List<UserInfoModel> infoModelList) {
+        this.titleList = titleList;
         this.infoModelList = infoModelList;
+    }
+
+    public UserInfoAdapter(List<String> titleList) {
+        this.titleList = titleList;
     }
 
     @Override
@@ -37,7 +43,7 @@ public class UserInfoAdapter extends BaseRecycleAdapter {
 
     @Override
     public int getItemCount() {
-        return infoModelList == null ? 0 : infoModelList.size();
+        return titleList == null ? 0 : titleList.size();
     }
 
     public class UserInfoViewHolder extends BaseViewHolder {
@@ -63,13 +69,15 @@ public class UserInfoAdapter extends BaseRecycleAdapter {
                     }
                 }
             });
-            info_title.setText(infoModelList.get(position).userTitle);
-            if (!TextUtils.isEmpty(infoModelList.get(position).userContent)) {
-                info_content.setText(infoModelList.get(position).userContent);
-            }
-            if (!TextUtils.isEmpty(infoModelList.get(position).userAvatar)) {
-                ImageLoader.loadCircleImage(info_avatar.getContext(),
-                        infoModelList.get(position).userAvatar, info_avatar);
+            info_title.setText(titleList.get(position));
+            if (infoModelList != null) {
+                if (!TextUtils.isEmpty(infoModelList.get(position).userContent)) {
+                    info_content.setText(infoModelList.get(position).userContent);
+                }
+                if (!TextUtils.isEmpty(infoModelList.get(position).userAvatar)) {
+                    ImageLoader.loadCircleImage(info_avatar.getContext(),
+                            infoModelList.get(position).userAvatar, info_avatar);
+                }
             }
         }
     }

@@ -50,6 +50,7 @@ public class PersonActivity extends BaseActivity {
             case R.id.person_item_language:
                 break;
             case R.id.person_item_about:
+                Navigation.showAbout(context);
                 break;
         }
     }
