@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="user_item">
+        <item>@string/person_text_avatar</item>
+        <item>@string/person_text_id</item>
+        <item>@string/person_text_name</item>
+        <item>@string/person_text_gender</item>
+        <item>@string/person_text_email</item>
+        <item>@string/person_text_facebook</item>
+        <item>@string/person_text_password</item>
+    </string-array>
+
+    <string-array name="device_type">
+        <item>Attic</item>
+        <item>Baby's Room</item>
+        <item>Backyard</item>
+        <item>Balcony</item>
+        <item>Ballroom</item>
+        <item>Basement</item>
+        <item>Bathroom</item>
+        <item>Bedroom</item>
+        <item>Box Room</item>
+        <item>Cabinet</item>
+        <item>Cameras</item>
+        <item>Cellar</item>
+        <item>Children</item>
+        <item>Cloakroom</item>
+        <item>Convervatory</item>
+        <item>Dining Room</item>
+        <item>Downstairs</item>
+        <item>Drawing Room</item>
+        <item>Foreyard</item>
+        <item>Garden</item>
+        <item>Games Room</item>
+        <item>Guest Room</item>
+        <item>Hall</item>
+        <item>Heating and Cooling</item>
+        <item>Hubs</item>
+        <item>Kid's Room</item>
+        <item>Kitchen</item>
+        <item>Landing</item>
+        <item>Larder</item>
+        <item>Laundry Room</item>
+        <item>Library</item>
+        <item>Lighting</item>
+        <item>Living Room</item>
+        <item>Locks</item>
+        <item>Loft</item>
+        <item>Lounge</item>
+        <item>Media Room</item>
+        <item>Motion Detectors</item>
+        <item>Music Room</item>
+        <item>Office</item>
+        <item>Pantry</item>
+        <item>Parlour</item>
+        <item>Patio</item>
+        <item>Plugs and Switches</item>
+        <item>Rec Room</item>
+        <item>Roof</item>
+        <item>Safety</item>
+        <item>Sauna</item>
+        <item>Second Bathroom</item>
+        <item>Second Toilet</item>
+        <item>Security</item>
+        <item>Sensors</item>
+        <item>Sitting Room</item>
+        <item>Smoke detectors</item>
+        <item>Spare Room</item>
+        <item>Study</item>
+        <item>TV Room</item>
+        <item>TVs</item>
+        <item>Toilet</item>
+        <item>Upstairs</item>
+        <item>Utility Room</item>
+        <item>Workshop</item>
+    </string-array>
+</resources>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

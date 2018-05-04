@@ -1,0 +1,78 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="colorControlActivated">@color/colorControlActivated</item>
+        <!--<item name="colorControlHighlight">@color/colorControlActivated</item>-->
+        <item name="android:windowBackground">@color/appBackground</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <!-- 修改SearchView光标颜色. -->
+    <style name="SearchViewStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColorHint">@color/textColorHint</item>
+        <item name="colorControlNormal">@color/colorControlNormal</item>
+        <item name="colorControlActivated">@color/bg_mask</item>
+        <item name="android:windowBackground">@color/appBackground</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+    <style name="InputEditStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">@dimen/login_input_margin_start</item>
+        <item name="android:paddingEnd">@dimen/login_input_margin_end</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textColorHint">@color/text_hint</item>
+    </style>
+
+    <style name="InputIconStyle">
+        <item name="android:layout_width">@dimen/login_icon_size</item>
+        <item name="android:layout_height">@dimen/login_icon_size</item>
+        <item name="android:layout_marginBottom">@dimen/login_icon_margin</item>
+        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_gravity">end|bottom</item>
+        <item name="android:scaleType">center</item>
+    </style>
+
+    <style name="InputSubmitStyle">
+        <item name="android:layout_width">@dimen/login_submit_size</item>
+        <item name="android:layout_height">@dimen/login_submit_size</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
+    </style>
+
+    <style name="PersonItemStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/person_item_height</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:padding">@dimen/activity_horizontal_margin</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="PersonTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/text_normal</item>
+        <item name="android:textSize">@dimen/text_size_btn</item>
+    </style>
+
+    <style name="PersonGuideStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/ic_nv_enter</item>
+    </style>
+
+</resources>

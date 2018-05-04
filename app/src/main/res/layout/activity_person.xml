@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.inno.home.widget.UCTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.inno.home.widget.UCTitleBar>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/person_item_user"
+                style="@style/PersonItemStyle">
+
+                <TextView
+                    android:id="@+id/person_text_user"
+                    style="@style/PersonTextStyle" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_nv_enter" />
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/person_item_margin"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <FrameLayout
+                    android:id="@+id/person_item_language"
+                    style="@style/PersonItemStyle">
+
+                    <TextView
+                        style="@style/PersonTextStyle"
+                        android:text="@string/person_text_language" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:src="@drawable/ic_nv_enter" />
+                </FrameLayout>
+
+                <include layout="@layout/interval_line_hor_margin_start" />
+
+                <FrameLayout
+                    android:id="@+id/person_item_about"
+                    style="@style/PersonItemStyle">
+
+                    <TextView
+                        style="@style/PersonTextStyle"
+                        android:text="@string/person_text_about" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:src="@drawable/ic_nv_enter" />
+                </FrameLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/sign_out"
+                android:layout_width="@dimen/btn_width"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginTop="@dimen/btn_margin_top"
+                android:background="@drawable/shape_btn_setting"
+                android:gravity="center"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/prompt_sign_out"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_btn" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
+</LinearLayout>

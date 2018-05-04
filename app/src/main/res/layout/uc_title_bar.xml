@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bar_rl_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title_bar_height">
+
+        <ImageButton
+            android:id="@+id/ibtn_left"
+            android:layout_width="@dimen/title_bar_height"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:src="@drawable/ic_nv_back"
+            android:textSize="@dimen/text_size_title_bar"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:gravity="center_vertical"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title_menu"
+            android:visibility="invisible"
+            tools:text="发送" />
+
+        <TextView
+            android:id="@+id/bar_title"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title_bar" />
+
+        <ImageButton
+            android:id="@+id/ibtn_right"
+            android:layout_width="@dimen/title_bar_height"
+            android:layout_height="match_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:src="@drawable/ic_nv_more"
+            android:textSize="@dimen/text_size_title_bar"
+            android:visibility="invisible" />
+
+        <TextView
+            android:id="@+id/tv_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:gravity="end|center_vertical"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:text="发送"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_size_title_menu"
+            android:visibility="invisible" />
+
+        <include
+            android:id="@+id/bar_divider"
+            layout="@layout/include_divider_hor"
+            android:visibility="gone" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/input_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/prompt_register_name"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_warn" />
+
+    <FrameLayout
+        android:id="@+id/fl_input_first_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_margin_prompt">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <AutoCompleteTextView
+                android:id="@+id/ev_input_first"
+                style="@style/InputEditStyle"
+                android:hint="@string/hint_name_first"
+                android:imeOptions="actionNext"
+                android:inputType="textPersonName" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/iv_input_icon_first"
+            style="@style/InputIconStyle"
+            android:src="@drawable/ic_input_clear"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/fl_input_second_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/ev_input_second"
+                style="@style/InputEditStyle"
+                android:hint="@string/hint_name_last"
+                android:inputType="textPersonName"
+                android:imeActionId="6"
+                android:imeActionLabel="@string/action_sign_in_short"
+                android:imeOptions="actionDone" />
+        </android.support.design.widget.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/iv_input_icon_second"
+            style="@style/InputIconStyle"
+            android:src="@drawable/ic_input_clear"
+            android:visibility="invisible"/>
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/btn_submit_name"
+        style="@style/InputSubmitStyle"
+        android:text="@string/action_sign_in"
+        android:textStyle="bold" />
+</LinearLayout>

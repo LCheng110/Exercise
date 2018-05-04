@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    android:layout_marginEnd="@dimen/item_edit_hide_width"
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tv_item_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/color_button_blue"
+        android:gravity="center"
+        android:minHeight="@dimen/item_edit_height"
+        android:minWidth="@dimen/item_edit_width"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_title_menu"
+        tool:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/tv_item_delete"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/color_button_red"
+        android:gravity="center"
+        android:minHeight="@dimen/item_edit_height"
+        android:minWidth="@dimen/item_edit_width"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_title_menu"
+        tool:text="@string/app_name" />
+</LinearLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.inno.home.widget.UCTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.inno.home.widget.UCTitleBar>
+
+    <EditText
+        android:id="@+id/et_input"
+        style="@style/PersonItemStyle" />
+</android.support.constraint.ConstraintLayout>

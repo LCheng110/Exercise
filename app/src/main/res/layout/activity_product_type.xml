@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.inno.home.widget.UCTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </com.inno.home.widget.UCTitleBar>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/product_item_water"
+        style="@style/PersonItemStyle">
+
+        <ImageView
+            android:id="@+id/iv_product_water"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:src="@drawable/ic_input_clear" />
+
+        <TextView
+            style="@style/PersonTextStyle"
+            android:layout_marginStart="@dimen/margin_image_text_interval"
+            android:text="@string/product_text_water"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_product_water"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/guide_water"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/interval_line_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/product_item_motion"
+        style="@style/PersonItemStyle">
+
+        <ImageView
+            android:id="@+id/iv_product_motion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:src="@drawable/ic_input_clear" />
+
+        <TextView
+            style="@style/PersonTextStyle"
+            android:layout_marginStart="@dimen/margin_image_text_interval"
+            android:text="@string/product_text_motion"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_product_motion"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/guide_motion"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/interval_line_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/product_item_window"
+        style="@style/PersonItemStyle">
+
+        <ImageView
+            android:id="@+id/iv_product_window"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:src="@drawable/ic_input_clear" />
+
+        <TextView
+            style="@style/PersonTextStyle"
+            android:layout_marginStart="@dimen/margin_image_text_interval"
+            android:text="@string/product_text_window"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_product_window"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/guide_name"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/interval_line_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/product_item_door"
+        style="@style/PersonItemStyle">
+
+        <ImageView
+            android:id="@+id/iv_product_door"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:src="@drawable/ic_input_clear" />
+
+        <TextView
+            style="@style/PersonTextStyle"
+            android:layout_marginStart="@dimen/margin_image_text_interval"
+            android:text="@string/product_text_door"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_product_door"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/guide_gender"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/interval_line_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/product_item_person"
+        style="@style/PersonItemStyle">
+
+        <ImageView
+            android:id="@+id/iv_product_person"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:src="@drawable/ic_input_clear" />
+
+        <TextView
+            style="@style/PersonTextStyle"
+            android:layout_marginStart="@dimen/margin_image_text_interval"
+            android:text="@string/product_text_person"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_product_person"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/guide_email"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/interval_line_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/product_item_smoke"
+        style="@style/PersonItemStyle">
+
+        <ImageView
+            android:id="@+id/iv_product_smoke"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tool:src="@drawable/ic_input_clear" />
+
+        <TextView
+            style="@style/PersonTextStyle"
+            android:layout_marginStart="@dimen/margin_image_text_interval"
+            android:text="@string/product_text_smoke"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/iv_product_smoke"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+</LinearLayout>
