@@ -7,6 +7,8 @@
     <dimen name="item_divide_space">14dp</dimen>
     <dimen name="padding">8dp</dimen>
     <dimen name="margin_image_text_interval">32dp</dimen>
+    <dimen name="tab_indicator_height">2dp</dimen>
+    <dimen name="tab_indicator_width">70dp</dimen>
 
     <dimen name="btn_radius">22dp</dimen>
     <dimen name="btn_width">245dp</dimen>

@@ -3,5 +3,5 @@ package com.inno.home.model;
 public class DeviceModel {
     public String deviceName = "Smoke Alarm";
     public String deviceAvatar;
-    public boolean deviceStatus;
+    public int deviceStatus;
 }

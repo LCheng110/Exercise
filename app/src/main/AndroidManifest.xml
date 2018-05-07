@@ -38,6 +38,7 @@
         <activity android:name=".controller.device.ProductTypeActivity" />
         <activity android:name=".controller.device.DeviceListActivity" />
         <activity android:name=".controller.device.ProductConnectActivity" />
+        <activity android:name=".controller.device.DeviceControlActivity" />
     </application>
 
 </manifest>

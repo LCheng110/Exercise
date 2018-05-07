@@ -12,6 +12,7 @@ import com.inno.home.adapter.viewholder.SlideEditViewHolder;
 import com.inno.home.controller.dialog.DialogHelper;
 import com.inno.home.dao.Session;
 import com.inno.home.model.DeviceModel;
+import com.inno.home.utils.AppUtil;
 import com.inno.home.widget.WheelView;
 
 import java.util.List;
@@ -21,8 +22,9 @@ import butterknife.BindView;
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.DeviceListViewHolder> {
 
     private String[] onlineStatus = new String[]{
-            "Online",
-            "Offline"
+            AppUtil.getContext().getString(R.string.device_status_online),
+            AppUtil.getContext().getString(R.string.device_status_alarm),
+            AppUtil.getContext().getString(R.string.device_status_offline)
     };
     private List<DeviceModel> deviceModelList;
 
@@ -59,7 +61,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
         }
 
         public void bind(final int position) {
-            tv_device_online.setText(onlineStatus[deviceModelList.get(position).deviceStatus ? 0 : 1]);
+            tv_device_online.setText(onlineStatus[deviceModelList.get(position).deviceStatus]);
             setEditText("Pin");
             setOnEditListener(new View.OnClickListener() {
                 @Override

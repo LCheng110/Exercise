@@ -40,6 +40,12 @@
     <string name="edit_item_delete">Delete</string>
     <string name="edit_item_accept">Accept</string>
 
+    <!-- Strings related to Device -->
+    <string name="device_control_prompt">Monitoring..</string>
+    <string name="device_status_online">Online</string>
+    <string name="device_status_alarm">Alarm</string>
+    <string name="device_status_offline">Offline</string>
+
     <!-- Strings related to Product -->
     <string name="product_text_title">Categories</string>
     <string name="product_text_water">Water Alarm</string>

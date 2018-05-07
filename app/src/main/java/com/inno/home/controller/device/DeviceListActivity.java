@@ -44,6 +44,9 @@ public class DeviceListActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        deviceModelList.get(0).deviceStatus = DeviceControlActivity.DEVICE_STATUS_ONLINE;
+        deviceModelList.get(1).deviceStatus = DeviceControlActivity.DEVICE_STATUS_OFFLINE;
+        deviceModelList.get(2).deviceStatus = DeviceControlActivity.DEVICE_STATUS_WARN;
         if (titleBar != null) {
             titleBar.setTitleText(mHomeTile).setRightEvent(R.drawable.ic_nv_add, new View.OnClickListener() {
                 @Override
@@ -57,7 +60,8 @@ public class DeviceListActivity extends BaseActivity {
         rv_device_list.setOnItemClick(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
+                Navigation.showDeviceControl(context, deviceModelList.get(position).deviceName,
+                        deviceModelList.get(position).deviceStatus);
             }
         });
     }

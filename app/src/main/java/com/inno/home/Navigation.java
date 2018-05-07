@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.inno.home.controller.MainActivity;
+import com.inno.home.controller.device.DeviceControlActivity;
 import com.inno.home.controller.device.DeviceListActivity;
 import com.inno.home.controller.device.DeviceTypeActivity;
 import com.inno.home.controller.device.ProductConnectActivity;
@@ -68,6 +69,13 @@ public class Navigation {
 
     public static void showDeviceType(Context context) {
         context.startActivity(new Intent(context, DeviceTypeActivity.class));
+    }
+
+    public static void showDeviceControl(Context context, String deviceTitle, int onlineStatus) {
+        Intent intent = new Intent(context, DeviceControlActivity.class);
+        intent.putExtra(DeviceControlActivity.DEVICE_TITLE, deviceTitle);
+        intent.putExtra(DeviceControlActivity.DEVICE_STATUS, onlineStatus);
+        context.startActivity(intent);
     }
 
     public static void showProductType(Context context) {

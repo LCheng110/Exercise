@@ -18,4 +18,11 @@
     <color name="BgPrimary">#293369</color>
     <color name="color_button_blue">#3B55E7</color>
     <color name="color_button_red">#FF5F57</color>
+
+    <color name="device_control_online">#3EB97E</color>
+    <color name="device_control_online_bg">#30A96F</color>
+    <color name="device_control_warn">#E96B59</color>
+    <color name="device_control_warn_bg">#D94D39</color>
+    <color name="device_control_offline">#A4A3A3</color>
+    <color name="device_control_offline_bg">#666666</color>
 </resources>
