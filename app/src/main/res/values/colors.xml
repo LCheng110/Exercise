@@ -11,7 +11,7 @@
     <color name="colorLine">#EFEEEE</color>
     <color name="bg_mask">#97000000</color>
     <color name="textColorHint">#A1A6BB</color>
-    <color name="text_normal">#131313</color>
+    <color name="text_normal">#252525</color>
     <color name="text_hint">#A1A6BB</color>
     <color name="colorControlNormal">#E4E7F0</color>
     <color name="colorControlActivated">#FFFFFF</color>

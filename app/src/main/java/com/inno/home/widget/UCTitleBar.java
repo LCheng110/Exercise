@@ -171,11 +171,11 @@ public class UCTitleBar extends LinearLayout {
     /**
      * 设置右侧图片事件 默认搜索icon 如不需更改icon drawable 传 0
      *
-     * @param listener
      * @param drawable
+     * @param listener
      * @return
      */
-    public UCTitleBar setRightEvent(OnClickListener listener, int drawable) {
+    public UCTitleBar setRightEvent(int drawable, OnClickListener listener) {
         if (drawable != 0) {
             ibtn_right.setImageResource(drawable);
         }

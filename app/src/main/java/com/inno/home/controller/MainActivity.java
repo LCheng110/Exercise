@@ -6,6 +6,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,8 +24,9 @@ import com.inno.home.adapter.delegate.navigation.NavigateShareDelegate;
 import com.inno.home.adapter.delegate.navigation.NavigateUserDelegate;
 import com.inno.home.adapter.divide.GridItemDecoration;
 import com.inno.home.base.BaseActivity;
+import com.inno.home.dao.Session;
 import com.inno.home.model.DelegateModel;
-import com.inno.home.model.DeviceModel;
+import com.inno.home.model.HomeDeviceModel;
 import com.inno.home.model.navigate.ContactModel;
 import com.inno.home.model.navigate.HomeModel;
 import com.inno.home.model.navigate.ShareModel;
@@ -54,7 +56,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.nv_bottom_setting)
     public ImageView nv_bottom_setting;
 
-    List<DeviceModel> deviceModelList = new ArrayList<>();
+    List<HomeDeviceModel> homeDeviceModelList = new ArrayList<>();
 
     private HomeDeviceAdapter homeDeviceAdapter;
 
@@ -65,10 +67,17 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initValue() {
-        if (deviceModelList.size() == 0) {
-            deviceModelList.add(new DeviceModel());
-            deviceModelList.add(new DeviceModel(true));
+        if (homeDeviceModelList.size() == 0) {
+            homeDeviceModelList.add(new HomeDeviceModel("Everything"));
+            homeDeviceModelList.add(new HomeDeviceModel(true));
         }
+        List<String> deviceNameList = new ArrayList<>();
+        for (HomeDeviceModel homeDeviceModel : homeDeviceModelList) {
+            if (!TextUtils.isEmpty(homeDeviceModel.deviceName)) {
+                deviceNameList.add(homeDeviceModel.deviceName);
+            }
+        }
+        Session.seHomeDevice(deviceNameList);
     }
 
     @Override
@@ -98,7 +107,7 @@ public class MainActivity extends BaseActivity {
         rv_device_list.setLayoutManager(layoutManager);
         rv_device_list.addItemDecoration(new GridItemDecoration(context, R.color.white, getResources()
                 .getDimensionPixelSize(R.dimen.item_divide_space)));
-        rv_device_list.setAdapter(homeDeviceAdapter = new HomeDeviceAdapter(deviceModelList));
+        rv_device_list.setAdapter(homeDeviceAdapter = new HomeDeviceAdapter(homeDeviceModelList));
     }
 
     @Override

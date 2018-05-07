@@ -1,5 +1,6 @@
 package com.inno.home.adapter.viewholder;
 
+import android.support.annotation.StringRes;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -20,12 +21,20 @@ public abstract class SlideEditViewHolder extends BaseViewHolder {
         layoutParams = (FrameLayout.LayoutParams) ll_item_root.getLayoutParams();
     }
 
-    public void setOnEditListener(View.OnClickListener clickListener) {
-        tv_item_edit.setOnClickListener(clickListener);
+    public void setEditText(String text) {
+        tv_item_edit.setText(text);
     }
 
-    public void setOnDeleteListener(View.OnClickListener clickListener) {
-        tv_item_delete.setOnClickListener(clickListener);
+    public void setEditText(@StringRes int stringId) {
+        tv_item_edit.setText(stringId);
+    }
+
+    public void setDeleteText(String text) {
+        tv_item_delete.setText(text);
+    }
+
+    public void setDeleteText(@StringRes int stringId) {
+        tv_item_delete.setText(stringId);
     }
 
     public void hideEditItem() {
@@ -48,5 +57,13 @@ public abstract class SlideEditViewHolder extends BaseViewHolder {
                 tv_item_edit.getResources().getDimensionPixelSize(R.dimen.item_edit_hide_width_single)) {
             layoutParams.setMarginEnd(0);
         }
+    }
+
+    public void setOnEditListener(View.OnClickListener clickListener) {
+        tv_item_edit.setOnClickListener(clickListener);
+    }
+
+    public void setOnDeleteListener(View.OnClickListener clickListener) {
+        tv_item_delete.setOnClickListener(clickListener);
     }
 }

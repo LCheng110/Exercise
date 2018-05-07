@@ -60,8 +60,10 @@ public class Navigation {
         context.startActivity(new Intent(context, MainActivity.class));
     }
 
-    public static void showDeviceList(Context context) {
-        context.startActivity(new Intent(context, DeviceListActivity.class));
+    public static void showDeviceList(Context context, String homeTitle) {
+        Intent intent = new Intent(context, DeviceListActivity.class);
+        intent.putExtra(DeviceListActivity.HOME_TITLE, homeTitle);
+        context.startActivity(intent);
     }
 
     public static void showDeviceType(Context context) {

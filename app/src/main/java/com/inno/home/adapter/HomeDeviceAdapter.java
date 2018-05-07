@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.inno.home.Navigation;
 import com.inno.home.R;
-import com.inno.home.model.DeviceModel;
+import com.inno.home.model.HomeDeviceModel;
 
 import java.util.List;
 
@@ -22,9 +22,9 @@ import java.util.List;
 
 public class HomeDeviceAdapter extends RecyclerView.Adapter<HomeDeviceAdapter.DeviceViewHolder> {
 
-    private List<DeviceModel> modelList;
+    private List<HomeDeviceModel> modelList;
 
-    public HomeDeviceAdapter(List<DeviceModel> modelList) {
+    public HomeDeviceAdapter(List<HomeDeviceModel> modelList) {
         this.modelList = modelList;
     }
 
@@ -61,7 +61,7 @@ public class HomeDeviceAdapter extends RecyclerView.Adapter<HomeDeviceAdapter.De
             iv_device_add = itemView.findViewById(R.id.iv_device_add);
         }
 
-        public void bind(DeviceModel model) {
+        public void bind(HomeDeviceModel model) {
             if (model.isAddView) {
                 cl_device_show_view.setVisibility(View.GONE);
                 iv_device_add.setVisibility(View.VISIBLE);
@@ -76,7 +76,7 @@ public class HomeDeviceAdapter extends RecyclerView.Adapter<HomeDeviceAdapter.De
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Navigation.showDeviceList(v.getContext());
+                    Navigation.showDeviceList(v.getContext(), tv_device_group.getText().toString());
                 }
             });
             itemView.setOnLongClickListener(new View.OnLongClickListener() {

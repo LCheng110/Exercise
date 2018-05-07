@@ -67,11 +67,6 @@ public class SlideEditRecycleView extends RecyclerView {
     }
 
     @Override
-    public boolean onInterceptTouchEvent(MotionEvent e) {
-        return true;
-    }
-
-    @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         requestDisallowInterceptTouchEvent(true);
         return super.dispatchTouchEvent(ev);
@@ -97,22 +92,15 @@ public class SlideEditRecycleView extends RecyclerView {
                     } else {
                         mLayoutLength = (int) Math.abs(getResources().getDimension(R.dimen.item_edit_hide_width));
                     }
-                    viewHolder.setOnEditListener(new OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            mItemLayout.scrollTo(0, 0);
-                            mLayoutStatus = LAYOUT_STATE_HIDE;
-                        }
-                    });
+
                 } else if (mLayoutStatus == LAYOUT_STATE_SHOW) {
                     if (mCurPosition != viewHolder.getAdapterPosition()) {
                         initSlideStatus();
-                        return false;
+                        return super.onTouchEvent(e);
                     }
                 } else {
-                    return false;
+                    return super.onTouchEvent(e);
                 }
-
                 break;
             case MotionEvent.ACTION_MOVE:
                 if (mItemLayout == null) {
@@ -141,7 +129,7 @@ public class SlideEditRecycleView extends RecyclerView {
                 }
                 if (mCurPosition == mPosition && mLayoutStatus == LAYOUT_STATE_SHOW) {
                     initSlideStatus();
-                    return false;
+                    return super.onTouchEvent(e);
                 }
                 if (!isItemMoving && !isListDragging && onItemClick != null) {
                     onItemClick.onItemClick(mItemLayout, mPosition);
