@@ -7,11 +7,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.inno.home.R;
+import com.inno.home.widget.SlideEditRecycleView;
 
 public abstract class SlideEditViewHolder extends BaseViewHolder {
     private LinearLayout ll_item_root;
     private TextView tv_item_edit, tv_item_delete;
     private FrameLayout.LayoutParams layoutParams;
+    private SlideEditRecycleView.OnItemClickListener onItemClickListener;
 
     public SlideEditViewHolder(View itemView) {
         super(itemView);
@@ -59,11 +61,31 @@ public abstract class SlideEditViewHolder extends BaseViewHolder {
         }
     }
 
-    public void setOnEditListener(View.OnClickListener clickListener) {
-        tv_item_edit.setOnClickListener(clickListener);
+    public void setOnEditListener(final View.OnClickListener clickListener) {
+        tv_item_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick();
+                }
+                clickListener.onClick(v);
+            }
+        });
     }
 
-    public void setOnDeleteListener(View.OnClickListener clickListener) {
-        tv_item_delete.setOnClickListener(clickListener);
+    public void setOnDeleteListener(final View.OnClickListener clickListener) {
+        tv_item_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick();
+                }
+                clickListener.onClick(v);
+            }
+        });
+    }
+
+    public void setOnItemClickListener(SlideEditRecycleView.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

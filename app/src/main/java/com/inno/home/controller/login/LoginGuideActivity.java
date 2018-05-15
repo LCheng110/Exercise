@@ -2,13 +2,14 @@ package com.inno.home.controller.login;
 
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
-import android.support.v4.app.ShareCompat;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
+import com.inno.home.utils.EncryptUtil;
 import com.inno.home.utils.UiUtil;
 
 import butterknife.BindView;
@@ -59,16 +60,18 @@ public class LoginGuideActivity extends BaseActivity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_email:
-                Navigation.showMain(context);
+                Navigation.showRegister(context);
+//                Navigation.showMain(context);
                 break;
             case R.id.login_facebook:
-                ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(this);
-                builder.setType("text/html");
-                builder.setHtmlText("<a href='http://www.baidu.com'>百度试试</a>");
-                builder.setChooserTitle(R.string.app_name);
-                builder.setSubject(getString(R.string.action_sign_in));
-                builder.setText("哈哈哈哈哈哈或http://www.baidu.com");
-                builder.startChooser();
+//                ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(this);
+//                builder.setType("text/html");
+//                builder.setHtmlText("<a href='http://www.baidu.com'>百度试试</a>");
+//                builder.setChooserTitle(R.string.app_name);
+//                builder.setSubject(getString(R.string.action_sign_in));
+//                builder.setText("哈哈哈哈哈哈或http://www.baidu.com");
+//                builder.startChooser();
+                Log.i("sss", "onClick: "+ EncryptUtil.md5("111111"));
                 break;
         }
     }

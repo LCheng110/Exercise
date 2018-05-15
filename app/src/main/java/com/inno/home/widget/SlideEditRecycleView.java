@@ -13,7 +13,6 @@ import android.widget.Scroller;
 
 import com.inno.home.R;
 import com.inno.home.adapter.viewholder.SlideEditViewHolder;
-import com.inno.home.listen.click.OnItemClickListener;
 
 public class SlideEditRecycleView extends RecyclerView {
 
@@ -37,7 +36,7 @@ public class SlideEditRecycleView extends RecyclerView {
     private int mPosition;
     private int mCurPosition; // 当前已经出现编辑布局的item位置
     private View mItemLayout; // 编辑布局
-    private OnItemClickListener onItemClick; // item 点击监听
+    private com.inno.home.listen.click.OnItemClickListener onItemClick; // item 点击监听
     private boolean isItemMoving; // item 是否正在移动中
     private boolean isStartScroll; // 是否开始滑动状态
     private boolean isListDragging; // 是否说列表上下滑动拖拽
@@ -58,7 +57,7 @@ public class SlideEditRecycleView extends RecyclerView {
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
-    public void setOnItemClick(OnItemClickListener onItemClick) {
+    public void setOnItemClick(com.inno.home.listen.click.OnItemClickListener onItemClick) {
         this.onItemClick = onItemClick;
     }
 
@@ -92,11 +91,16 @@ public class SlideEditRecycleView extends RecyclerView {
                     } else {
                         mLayoutLength = (int) Math.abs(getResources().getDimension(R.dimen.item_edit_hide_width));
                     }
-
+                    viewHolder.setOnItemClickListener(new OnItemClickListener() {
+                        @Override
+                        public void onItemClick() {
+                            initSlideStatus();
+                        }
+                    });
                 } else if (mLayoutStatus == LAYOUT_STATE_SHOW) {
                     if (mCurPosition != viewHolder.getAdapterPosition()) {
                         initSlideStatus();
-                        return super.onTouchEvent(e);
+                        return false;
                     }
                 } else {
                     return super.onTouchEvent(e);
@@ -208,5 +212,9 @@ public class SlideEditRecycleView extends RecyclerView {
         mScroller.startScroll(mItemLayout.getScrollX(), 0, -mItemLayout.getScrollX(), 0, 200);
         invalidate();
         mCurPosition = -1;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick();
     }
 }

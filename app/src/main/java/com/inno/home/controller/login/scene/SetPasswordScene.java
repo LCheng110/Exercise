@@ -3,6 +3,7 @@ package com.inno.home.controller.login.scene;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.SparseArray;
@@ -26,8 +27,8 @@ public class SetPasswordScene extends SubmitBaseScene {
     private EditText mSetPasswordEditView;
 
     @NonNull
-    public static SubmitBaseScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
-                                          @NonNull Context context) {
+    public static SetPasswordScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
+                                                     @NonNull Context context) {
         @SuppressWarnings("unchecked")
         SparseArray<SubmitBaseScene> scenes =
                 (SparseArray<SubmitBaseScene>) sceneRoot.getTag(android.support.transition.R.id.transition_scene_layoutid_cache);
@@ -35,7 +36,7 @@ public class SetPasswordScene extends SubmitBaseScene {
             scenes = new SparseArray<>();
             sceneRoot.setTag(android.support.transition.R.id.transition_scene_layoutid_cache, scenes);
         }
-        SubmitBaseScene scene = scenes.get(layoutId);
+        SetPasswordScene scene = (SetPasswordScene) scenes.get(layoutId);
         if (scene != null) {
             return scene;
         } else {
@@ -62,12 +63,28 @@ public class SetPasswordScene extends SubmitBaseScene {
         mSceneView.findViewById(R.id.btn_submit_password).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitListener.onSubmit(view);
+                if (TextUtils.isEmpty(mCodeEditView.getText().toString())) {
+                    mCodeEditView.setError("");
+                    mCodeEditView.requestFocus();
+                } else if (TextUtils.isEmpty(mSetPasswordEditView.getText().toString())) {
+                    mSetPasswordEditView.setError("");
+                    mCodeEditView.requestFocus();
+                } else {
+                    submitListener.onSubmit(view);
+                }
             }
         });
     }
 
     private SetPasswordScene(ViewGroup sceneRoot, int layoutId, Context context) {
         this(sceneRoot, LayoutInflater.from(context).inflate(layoutId, sceneRoot, false));
+    }
+
+    public String getVaildCode() {
+        return mCodeEditView.getText().toString();
+    }
+
+    public String getPassword() {
+        return mSetPasswordEditView.getText().toString();
     }
 }

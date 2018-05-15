@@ -31,8 +31,8 @@ public class LoginScene extends SubmitBaseScene {
     private EditText mLoginPasswordView;
 
     @NonNull
-    public static SubmitBaseScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
-                                          @NonNull Context context) {
+    public static LoginScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
+                                               @NonNull Context context) {
         @SuppressWarnings("unchecked")
         SparseArray<SubmitBaseScene> scenes =
                 (SparseArray<SubmitBaseScene>) sceneRoot.getTag(android.support.transition.R.id.transition_scene_layoutid_cache);
@@ -40,7 +40,7 @@ public class LoginScene extends SubmitBaseScene {
             scenes = new SparseArray<>();
             sceneRoot.setTag(android.support.transition.R.id.transition_scene_layoutid_cache, scenes);
         }
-        SubmitBaseScene scene = scenes.get(layoutId);
+        LoginScene scene = (LoginScene) scenes.get(layoutId);
         if (scene != null) {
             return scene;
         } else {

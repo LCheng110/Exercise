@@ -12,12 +12,19 @@ import android.widget.ScrollView;
 
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
+import com.inno.home.config.ServiceParam;
 import com.inno.home.controller.login.scene.InputEmailScene;
 import com.inno.home.controller.login.scene.LoginScene;
 import com.inno.home.controller.login.scene.RegisterNameScene;
 import com.inno.home.controller.login.scene.SetPasswordScene;
 import com.inno.home.controller.login.scene.SubmitBaseScene;
+import com.inno.home.dao.UserCMD;
+import com.inno.home.listen.net.NetRequestListener;
+import com.inno.home.model.BaseModel;
 import com.inno.home.utils.UiUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
@@ -27,9 +34,9 @@ import butterknife.BindView;
 public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSubmitListener {
 
     public static final String INPUT_VIEW_FLAG = "INPUT_VIEW_FLAG";
-    private static final int INPUT_VIEW_FLAG_LOGIN = 0;
-    private static final int INPUT_VIEW_FLAG_REGISTER = 1;
-    private static final int INPUT_VIEW_FLAG_PASSWORD = 2;
+    public static final int INPUT_VIEW_FLAG_LOGIN = 0;
+    public static final int INPUT_VIEW_FLAG_REGISTER = 1;
+    public static final int INPUT_VIEW_FLAG_PASSWORD = 2;
 
     private static final int REQUEST_READ_CONTACTS = 0;
 
@@ -44,7 +51,10 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
     private UserLoginTask mAuthTask = null;
 
     private Transition mSceneTransition;
-    private SubmitBaseScene mLoginScene, mRegisterNameScene, mEmailScene, mSetPasswordScene;
+    private LoginScene mLoginScene;
+    private RegisterNameScene mRegisterNameScene;
+    private InputEmailScene mEmailScene;
+    private SetPasswordScene mSetPasswordScene;
     private View mCurrentView;
     private int mViewFlag;
 
@@ -121,6 +131,18 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
                 break;
             case R.id.btn_submit_email:
                 TransitionManager.go(mSetPasswordScene, mSceneTransition);
+                Map<String, String> map = new HashMap<>();
+                map.put(ServiceParam.EMAIL, mEmailScene.getEmail());
+                UserCMD.getVerifyCode(map, new NetRequestListener() {
+                    @Override
+                    public void onSuccess(BaseModel baseModel) {
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+
+                    }
+                });
                 break;
             case R.id.btn_submit_password:
                 TransitionManager.go(mLoginScene, mSceneTransition);

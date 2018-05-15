@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inno.home.R;
+import com.inno.home.utils.ToastUtil;
 
 /**
  * Created by lcheng on 2018/4/17.
@@ -27,8 +28,8 @@ public class InputEmailScene extends SubmitBaseScene {
     private ImageView mEmailClearView;
 
     @NonNull
-    public static SubmitBaseScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
-                                          @NonNull Context context) {
+    public static InputEmailScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
+                                                    @NonNull Context context) {
         @SuppressWarnings("unchecked")
         SparseArray<SubmitBaseScene> scenes =
                 (SparseArray<SubmitBaseScene>) sceneRoot.getTag(android.support.transition.R.id.transition_scene_layoutid_cache);
@@ -36,7 +37,7 @@ public class InputEmailScene extends SubmitBaseScene {
             scenes = new SparseArray<>();
             sceneRoot.setTag(android.support.transition.R.id.transition_scene_layoutid_cache, scenes);
         }
-        SubmitBaseScene scene = scenes.get(layoutId);
+        InputEmailScene scene = (InputEmailScene) scenes.get(layoutId);
         if (scene != null) {
             return scene;
         } else {
@@ -74,12 +75,20 @@ public class InputEmailScene extends SubmitBaseScene {
         mSceneView.findViewById(R.id.btn_submit_email).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                submitListener.onSubmit(view);
+                if (mEmailEditView.getText().toString().contains("@")) {
+                    submitListener.onSubmit(view);
+                } else {
+                    ToastUtil.showToast("请输入正确的邮箱格式");
+                }
             }
         });
     }
 
     private InputEmailScene(ViewGroup sceneRoot, int layoutId, Context context) {
         this(sceneRoot, LayoutInflater.from(context).inflate(layoutId, sceneRoot, false));
+    }
+
+    public String getEmail() {
+        return mEmailEditView.getText().toString();
     }
 }

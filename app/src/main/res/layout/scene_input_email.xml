@@ -8,7 +8,7 @@
         android:id="@+id/input_prompt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/prompt_forget_password"
+        android:text="@string/prompt_register_email"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_warn" />
 

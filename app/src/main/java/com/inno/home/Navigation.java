@@ -30,7 +30,15 @@ public class Navigation {
     }
 
     public static void showLogin(Context context) {
-        context.startActivity(new Intent(context, LoginActivity.class));
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra(LoginActivity.INPUT_VIEW_FLAG, LoginActivity.INPUT_VIEW_FLAG_LOGIN);
+        context.startActivity(intent);
+    }
+
+    public static void showRegister(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra(LoginActivity.INPUT_VIEW_FLAG, LoginActivity.INPUT_VIEW_FLAG_REGISTER);
+        context.startActivity(intent);
     }
 
     public static void showPerson(Context context) {
