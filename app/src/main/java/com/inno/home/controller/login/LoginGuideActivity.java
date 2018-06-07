@@ -61,7 +61,6 @@ public class LoginGuideActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.login_email:
                 Navigation.showRegister(context);
-//                Navigation.showMain(context);
                 break;
             case R.id.login_facebook:
 //                ShareCompat.IntentBuilder builder = ShareCompat.IntentBuilder.from(this);
@@ -72,6 +71,7 @@ public class LoginGuideActivity extends BaseActivity {
 //                builder.setText("哈哈哈哈哈哈或http://www.baidu.com");
 //                builder.startChooser();
                 Log.i("sss", "onClick: "+ EncryptUtil.md5("111111"));
+                Navigation.showMain(context);
                 break;
         }
     }

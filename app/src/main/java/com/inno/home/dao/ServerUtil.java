@@ -29,21 +29,6 @@ public class ServerUtil {
     public static final int REQUEST_TYPE_DELETE = 3;
     public static boolean TOKEN_SEND_FLAG = false;
 
-    public static void addPublicHead(Map<String, String> newHeadMap) {
-//        if (Session.getUserId() > 0 && TOKEN_SEND_FLAG) {
-//            newHeadMap.put("X-Access-Token", Session.getToken());
-//        }
-//
-//        newHeadMap.put("X-Net-Info", IpAddress.getIp(AppUtil.getContext()));
-////        newHeadMap.put("content-type", "application/x-www-form-urlencoded");
-//        newHeadMap.put("charset", "utf-8");
-//        newHeadMap.put("X-App-Channel", CIDUtil.getCid(AppUtil.getContext()));
-//        getDeviceId(newHeadMap);
-//        Date date = new Date(System.currentTimeMillis());
-//        newHeadMap.put("Date", System.currentTimeMillis());
-//        newHeadMap.put("version", AppUtil.getAppVersion(AppUtil.getContext()));
-    }
-
     /**
      * GET请求
      */
@@ -145,6 +130,7 @@ public class ServerUtil {
         if (headMap != null) {
             newHeadMap.putAll(headMap);
         }
+        addPublicHead(newHeadMap);
         switch (requestType) {
             case REQUEST_TYPE_GET:
                 ServerManager.getApi().Obget(url, newHeadMap, newMap)
@@ -216,5 +202,11 @@ public class ServerUtil {
 //                        LoginActivity.FROM_SETTING);
             }
         }
+    }
+
+    public static void addPublicHead(Map<String, String> newHeadMap) {
+        newHeadMap.put("content-type", "application/json;charset=utf-8");
+        newHeadMap.put("charset", "utf-8");
+        newHeadMap.put("version", AppUtil.getAppVersion(AppUtil.getContext()));
     }
 }

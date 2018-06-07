@@ -10,7 +10,7 @@
         style="@style/PersonTextStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tool:text="@string/person_text_id" />
+        tool:text="@string/about_title_policy" />
 
     <ImageView
         android:id="@+id/info_avatar"

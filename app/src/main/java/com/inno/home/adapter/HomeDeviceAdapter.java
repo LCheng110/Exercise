@@ -85,6 +85,7 @@ public class HomeDeviceAdapter extends RecyclerView.Adapter<HomeDeviceAdapter.De
                     if (cl_device_edit_view.getVisibility() == View.GONE) {
                         TransitionManager.beginDelayedTransition((ViewGroup) itemView);
                         cl_device_edit_view.setVisibility(View.VISIBLE);
+                        return true;
                     }
                     return false;
                 }

@@ -29,20 +29,20 @@ public class NavigateHomeDelegate extends BaseDelegateAdapter {
     }
 
     public class HomeViewHolder extends BaseViewHolder<HomeModel> {
-        ConstraintLayout title_view;
+        ConstraintLayout home_title_view;
         ImageView iv_nv_flag;
         SlideEditRecycleView rv_home_list;
 
         public HomeViewHolder(View itemView) {
             super(itemView);
-            title_view = itemView.findViewById(R.id.title_view);
+            home_title_view = itemView.findViewById(R.id.home_title_view);
             iv_nv_flag = itemView.findViewById(R.id.iv_nv_flag);
             rv_home_list = itemView.findViewById(R.id.rv_home_list);
         }
 
         @Override
         public void bind(HomeModel homeModel) {
-            title_view.setOnClickListener(new View.OnClickListener() {
+            home_title_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     v.setSelected(!v.isSelected());
@@ -54,6 +54,7 @@ public class NavigateHomeDelegate extends BaseDelegateAdapter {
             rv_home_list.setLayoutManager(new LinearLayoutManager(rv_home_list.getContext()));
             rv_home_list.setAdapter(new NavigateHomeAdapter(homeModel.homeItemModels));
             rv_home_list.setSingle(true);
+            rv_home_list.setNestedScrollingEnabled(false);
         }
     }
 }

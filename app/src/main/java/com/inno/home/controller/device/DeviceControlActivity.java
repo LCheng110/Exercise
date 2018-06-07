@@ -92,14 +92,17 @@ public class DeviceControlActivity extends BaseActivity {
             if (deviceStatus == DEVICE_STATUS_ONLINE) {
                 titleColor = ContextCompat.getColor(context, R.color.device_control_online);
                 showBgColor = ContextCompat.getColor(context, R.color.device_control_online_bg);
+                iv_control_icon.setImageResource(R.drawable.ic_control_status_online);
                 tv_control_status.setText(R.string.device_status_online);
             } else if (deviceStatus == DEVICE_STATUS_WARN) {
                 titleColor = ContextCompat.getColor(context, R.color.device_control_warn);
                 showBgColor = ContextCompat.getColor(context, R.color.device_control_warn_bg);
+                iv_control_icon.setImageResource(R.drawable.ic_control_status_alarm);
                 tv_control_status.setText(R.string.device_status_alarm);
             } else {
                 titleColor = ContextCompat.getColor(context, R.color.device_control_offline);
                 showBgColor = ContextCompat.getColor(context, R.color.device_control_offline_bg);
+                iv_control_icon.setImageResource(R.drawable.ic_control_status_offline);
                 tv_control_status.setText(R.string.device_status_offline);
             }
             control_status_bg.setBackgroundColor(showBgColor);

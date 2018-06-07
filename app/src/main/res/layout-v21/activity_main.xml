@@ -10,6 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
@@ -38,9 +39,9 @@
             android:id="@+id/rv_device_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/item_divide_space"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginStart="@dimen/activity_horizontal_margin"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin">
+            android:layout_marginTop="@dimen/item_divide_space">
 
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
@@ -53,35 +54,48 @@
         android:fitsSystemWindows="true"
         android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/nv_menu"
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:fadingEdge="none"
-            android:padding="20dp"
-            android:overScrollMode="never" />
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <include layout="@layout/navigation_header" />
+
+                <include layout="@layout/navigation_home" />
+
+                <include layout="@layout/navigation_share" />
+
+                <include layout="@layout/navigation_contact" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
 
         <FrameLayout
             android:id="@+id/nv_bottom_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:background="@color/BgPrimary"
             android:gravity="center_vertical"
-            android:padding="20dp" >
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/nv_bottom_logout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@android:color/white"
-                android:text="@string/prompt_logout"/>
+                android:text="@string/prompt_logout"
+                android:textColor="@android:color/white" />
 
             <ImageView
                 android:id="@+id/nv_bottom_setting"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:src="@drawable/ic_nv_setting"/>
+                android:src="@drawable/ic_nv_setting" />
         </FrameLayout>
     </android.support.design.internal.ScrimInsetsFrameLayout>
 </android.support.v4.widget.DrawerLayout>

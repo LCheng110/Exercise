@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.inno.home.R;
 import com.inno.home.adapter.viewholder.SlideEditViewHolder;
+import com.inno.home.controller.device.ProductConnectActivity;
 import com.inno.home.controller.dialog.DialogHelper;
 import com.inno.home.dao.Session;
 import com.inno.home.model.DeviceModel;
@@ -61,7 +62,28 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
         }
 
         public void bind(final int position) {
+            tv_device_name.setText(deviceModelList.get(position).deviceName);
             tv_device_online.setText(onlineStatus[deviceModelList.get(position).deviceStatus]);
+            switch (deviceModelList.get(position).deviceType) {
+                case ProductConnectActivity.PRODUCT_TYPE_WATER:
+                    iv_device_icon.setImageResource(R.drawable.ic_product_water);
+                    break;
+                case ProductConnectActivity.PRODUCT_TYPE_MOTION:
+                    iv_device_icon.setImageResource(R.drawable.ic_product_motion);
+                    break;
+                case ProductConnectActivity.PRODUCT_TYPE_WINDOW:
+                    iv_device_icon.setImageResource(R.drawable.ic_product_window);
+                    break;
+                case ProductConnectActivity.PRODUCT_TYPE_DOOR:
+                    iv_device_icon.setImageResource(R.drawable.ic_product_door);
+                    break;
+                case ProductConnectActivity.PRODUCT_TYPE_PERSON:
+                    iv_device_icon.setImageResource(R.drawable.ic_product_person);
+                    break;
+                case ProductConnectActivity.PRODUCT_TYPE_SMOKE:
+                    iv_device_icon.setImageResource(R.drawable.ic_product_smoke);
+                    break;
+            }
             setEditText("Pin");
             setOnEditListener(new View.OnClickListener() {
                 @Override

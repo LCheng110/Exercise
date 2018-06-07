@@ -8,7 +8,7 @@
     android:paddingTop="@dimen/activity_vertical_margin">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/title_view"
+        android:id="@+id/home_title_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -38,8 +38,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fadingEdge="none"
+        android:overScrollMode="never"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@+id/title_view">
+        app:layout_constraintTop_toBottomOf="@+id/home_title_view">
 
     </com.inno.home.widget.SlideEditRecycleView>
 </android.support.constraint.ConstraintLayout>

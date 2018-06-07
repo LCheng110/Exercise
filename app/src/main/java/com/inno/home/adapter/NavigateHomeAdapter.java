@@ -4,6 +4,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inno.home.R;
@@ -33,20 +34,28 @@ public class NavigateHomeAdapter extends RecyclerView.Adapter<NavigateHomeAdapte
 
     @Override
     public int getItemCount() {
-        return itemModelList != null ? itemModelList.size() : 0;
+        return itemModelList != null ? itemModelList.size() + 1 : 1;
     }
 
     public class HomeItemViewHolder extends SlideEditViewHolder {
         TextView home_name;
+        ImageView iv_shared;
 
         public HomeItemViewHolder(View itemView) {
             super(itemView);
             home_name = itemView.findViewById(R.id.home_name);
+            iv_shared = itemView.findViewById(R.id.iv_shared);
             hideDeleteItem();
         }
 
         public void bind(int position) {
-            home_name.setText(itemModelList.get(position).homeName);
+            if (itemModelList == null || itemModelList.size() == position) {
+                home_name.setText(R.string.main_text_home_add);
+                iv_shared.setImageResource(R.drawable.ic_nv_home_add);
+            } else {
+                iv_shared.setImageResource(R.drawable.ic_nv_shared);
+                home_name.setText(itemModelList.get(position).homeName);
+            }
         }
     }
 }

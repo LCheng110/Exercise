@@ -151,7 +151,9 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
             int right = left + mDrawable.getIntrinsicWidth();
             int top = mChildView.getTop() - mLayoutParams.topMargin;
             int bottom = mChildView.getBottom() + mLayoutParams.bottomMargin;
-
+            if (isLastCol(mChildView, parent)) {
+                continue;
+            }
             mDrawable.setBounds(left, top, right, bottom);
             mDrawable.draw(canvas);
         }

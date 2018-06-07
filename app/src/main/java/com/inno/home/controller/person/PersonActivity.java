@@ -1,11 +1,13 @@
 package com.inno.home.controller.person;
 
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.TextView;
 
 import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
+import com.inno.home.controller.dialog.DialogHelper;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -41,7 +43,7 @@ public class PersonActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.person_item_user, R.id.person_item_language, R.id.person_item_about})
+    @OnClick({R.id.person_item_user, R.id.person_item_language, R.id.person_item_about, R.id.sign_out})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.person_item_user:
@@ -51,6 +53,17 @@ public class PersonActivity extends BaseActivity {
                 break;
             case R.id.person_item_about:
                 Navigation.showAbout(context);
+                break;
+            case R.id.sign_out:
+                new DialogHelper()
+                        .init(context)
+                        .setMessage(R.string.text_sign_out)
+                        .setPositiveListener(new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        }).show();
                 break;
         }
     }

@@ -69,6 +69,5 @@
     <Button
         android:id="@+id/btn_submit_name"
         style="@style/InputSubmitStyle"
-        android:text="@string/action_sign_in"
         android:textStyle="bold" />
 </LinearLayout>

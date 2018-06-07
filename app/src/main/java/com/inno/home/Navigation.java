@@ -17,6 +17,7 @@ import com.inno.home.controller.person.EmailActivity;
 import com.inno.home.controller.person.PersonActivity;
 import com.inno.home.controller.person.SharedUserActivity;
 import com.inno.home.controller.person.UserInfoActivity;
+import com.inno.home.controller.person.about.AboutContentActivity;
 
 /**
  * Created by lcheng on 2018/4/8.
@@ -93,6 +94,12 @@ public class Navigation {
     public static void showProductConnect(Context context, int productType) {
         Intent intent = new Intent(context, ProductConnectActivity.class);
         intent.putExtra(ProductConnectActivity.PRODUCT_TYPE, productType);
+        context.startActivity(intent);
+    }
+
+    public static void showAboutContent(Context context, int type) {
+        Intent intent = new Intent(context, AboutContentActivity.class);
+        intent.putExtra(AboutContentActivity.CONTENT_TYPE, type);
         context.startActivity(intent);
     }
 }

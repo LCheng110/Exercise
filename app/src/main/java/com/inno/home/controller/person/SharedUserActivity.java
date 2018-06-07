@@ -2,6 +2,8 @@ package com.inno.home.controller.person;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.inno.home.R;
 import com.inno.home.adapter.InvitedSharedUserAdapter;
@@ -17,6 +19,8 @@ public class SharedUserActivity extends BaseActivity {
     SlideEditRecycleView rv_shared_user_list;
     @BindView(R.id.rv_invited_list)
     RecyclerView rv_invited_list;
+    @BindView(R.id.fl_shared_empty)
+    FrameLayout fl_shared_empty;
 
     @Override
     protected int initLayout() {
@@ -35,6 +39,7 @@ public class SharedUserActivity extends BaseActivity {
         rv_shared_user_list.setSingle(true);
         rv_invited_list.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
         rv_invited_list.setAdapter(new InvitedSharedUserAdapter());
+        fl_shared_empty.setVisibility(View.VISIBLE);
     }
 
     @Override

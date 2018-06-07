@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -32,6 +33,8 @@ public class SlideEditRecycleView extends RecyclerView {
     private int mTouchSlop; // 最小滑动距离
     private int mLastX;
     private int mLastY;
+    private int mDispatchLastX;
+    private int mDispatchLastY;
     private int mLayoutLength; // 编辑布局的长度
     private int mPosition;
     private int mCurPosition; // 当前已经出现编辑布局的item位置
@@ -66,9 +69,23 @@ public class SlideEditRecycleView extends RecyclerView {
     }
 
     @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        requestDisallowInterceptTouchEvent(true);
-        return super.dispatchTouchEvent(ev);
+    public boolean dispatchTouchEvent(MotionEvent e) {
+        int x = (int) e.getX();
+        int y = (int) e.getY();
+        Log.i("sss", "dispatchTouchEvent: "+e.getAction());
+        switch (e.getAction()) {
+            case MotionEvent.ACTION_MOVE:
+                int dx = mDispatchLastX - x;
+                int dy = mDispatchLastY - y;
+                if (Math.abs(dx) > Math.abs(dy)) {
+                    requestDisallowInterceptTouchEvent(true);
+                }
+                break;
+
+        }
+        mDispatchLastX = x;
+        mDispatchLastY = y;
+        return super.dispatchTouchEvent(e);
     }
 
     @Override
@@ -100,7 +117,7 @@ public class SlideEditRecycleView extends RecyclerView {
                 } else if (mLayoutStatus == LAYOUT_STATE_SHOW) {
                     if (mCurPosition != viewHolder.getAdapterPosition()) {
                         initSlideStatus();
-                        return false;
+                        return super.onTouchEvent(e);
                     }
                 } else {
                     return super.onTouchEvent(e);
@@ -114,7 +131,7 @@ public class SlideEditRecycleView extends RecyclerView {
                 int dy = mLastY - y;
 
                 int scrollX = mItemLayout.getScrollX();
-                if (Math.abs(dx) > Math.abs(dy)) {
+                if (Math.abs(dx) > 2 * mTouchSlop && Math.abs(dx) > Math.abs(dy)) {
                     isItemMoving = true;
                     if (scrollX + dx <= 0) {//左边界检测
                         mItemLayout.scrollTo(0, 0);
