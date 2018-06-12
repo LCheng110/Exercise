@@ -3,6 +3,7 @@ package com.inno.home;
 import android.content.Context;
 import android.content.Intent;
 
+import com.inno.home.base.BaseActivity;
 import com.inno.home.controller.MainActivity;
 import com.inno.home.controller.device.DeviceControlActivity;
 import com.inno.home.controller.device.DeviceListActivity;
@@ -76,8 +77,8 @@ public class Navigation {
         context.startActivity(intent);
     }
 
-    public static void showDeviceType(Context context) {
-        context.startActivity(new Intent(context, DeviceTypeActivity.class));
+    public static void showDeviceType(BaseActivity context) {
+        context.startActivityForResult(new Intent(context, DeviceTypeActivity.class), 0);
     }
 
     public static void showDeviceControl(Context context, String deviceTitle, int onlineStatus) {

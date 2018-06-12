@@ -16,6 +16,8 @@ public class HomeModel extends DelegateModel {
 
     public static class HomeItemModel {
         public String homeName;
+        public boolean isSharedHome;
+        public boolean isSelected;
 
         public HomeItemModel(String homeName) {
             this.homeName = homeName;

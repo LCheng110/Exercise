@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.inno.home.Navigation;
 import com.inno.home.R;
+import com.inno.home.base.BaseActivity;
 import com.inno.home.model.HomeDeviceModel;
 
 import java.util.List;
@@ -35,7 +36,7 @@ public class HomeDeviceAdapter extends RecyclerView.Adapter<HomeDeviceAdapter.De
 
     @Override
     public void onBindViewHolder(DeviceViewHolder holder, int position) {
-        holder.bind(modelList.get(position));
+        holder.bind(position);
     }
 
     @Override
@@ -61,42 +62,66 @@ public class HomeDeviceAdapter extends RecyclerView.Adapter<HomeDeviceAdapter.De
             iv_device_add = itemView.findViewById(R.id.iv_device_add);
         }
 
-        public void bind(HomeDeviceModel model) {
-            if (model.isAddView) {
+        public void bind(final int position) {
+            cl_device_edit_view.setVisibility(View.GONE);
+            if (modelList.get(position).isAddView) {
                 cl_device_show_view.setVisibility(View.GONE);
                 iv_device_add.setVisibility(View.VISIBLE);
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Navigation.showDeviceType(view.getContext());
+                        Navigation.showDeviceType((BaseActivity) view.getContext());
                     }
                 });
-                return;
-            }
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Navigation.showDeviceList(v.getContext(), tv_device_group.getText().toString());
+            } else {
+                cl_device_show_view.setVisibility(View.VISIBLE);
+                iv_device_add.setVisibility(View.GONE);
+                tv_device_group.setText(modelList.get(position).deviceGroupName);
+                if (modelList.get(position).deviceItemModelList.size() == 0) {
+                    tv_device_num.setText(R.string.main_device_num_null);
+                } else {
+                    tv_device_num.setText(String.format(tv_device_num.getContext().getString(R.string.main_device_num_format),
+                            modelList.get(position).deviceItemModelList.size()));
                 }
-            });
-            itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    if (cl_device_edit_view.getVisibility() == View.GONE) {
-                        TransitionManager.beginDelayedTransition((ViewGroup) itemView);
-                        cl_device_edit_view.setVisibility(View.VISIBLE);
-                        return true;
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Navigation.showDeviceList(v.getContext(), tv_device_group.getText().toString());
                     }
-                    return false;
-                }
-            });
-            cl_device_edit_view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    TransitionManager.beginDelayedTransition((ViewGroup) itemView);
-                    cl_device_edit_view.setVisibility(View.GONE);
-                }
-            });
+                });
+                itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        if (cl_device_edit_view.getVisibility() == View.GONE) {
+                            TransitionManager.beginDelayedTransition((ViewGroup) itemView);
+                            cl_device_edit_view.setVisibility(View.VISIBLE);
+                            return true;
+                        }
+                        return false;
+                    }
+                });
+                cl_device_edit_view.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        TransitionManager.beginDelayedTransition((ViewGroup) itemView);
+                        cl_device_edit_view.setVisibility(View.GONE);
+                    }
+                });
+                iv_device_edit.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                iv_device_delete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        modelList.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, modelList.size());
+                    }
+                });
+            }
         }
     }
 }

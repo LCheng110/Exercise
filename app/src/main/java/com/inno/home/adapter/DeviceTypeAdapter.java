@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.inno.home.R;
+import com.inno.home.listen.click.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ public class DeviceTypeAdapter extends RecyclerView.Adapter<DeviceTypeAdapter.De
 
     private List<String> typeList;
     private List<String> filterList;
+    private OnItemClickListener itemClickListener;
 
     public DeviceTypeAdapter(List<String> typeList) {
         this.typeList = typeList;
@@ -30,6 +32,10 @@ public class DeviceTypeAdapter extends RecyclerView.Adapter<DeviceTypeAdapter.De
     @Override
     public void onBindViewHolder(DeviceTypeViewHolder holder, int position) {
         holder.bind(filterList.get(position));
+    }
+
+    public void setItemClickListener(OnItemClickListener itemClickListener) {
+        this.itemClickListener = itemClickListener;
     }
 
     @Override
@@ -55,8 +61,16 @@ public class DeviceTypeAdapter extends RecyclerView.Adapter<DeviceTypeAdapter.De
             tv_type_name = itemView.findViewById(R.id.tv_type_name);
         }
 
-        public void bind(String name) {
+        public void bind(final String name) {
             tv_type_name.setText(name);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (itemClickListener != null) {
+                        itemClickListener.onItemClick(v, typeList.indexOf(name));
+                    }
+                }
+            });
         }
     }
 }

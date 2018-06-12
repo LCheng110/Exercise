@@ -11,10 +11,20 @@ import android.widget.ImageView;
 import com.inno.home.R;
 import com.inno.home.adapter.NavigateHomeAdapter;
 import com.inno.home.adapter.delegate.BaseDelegateAdapter;
+import com.inno.home.listen.click.OnItemClickListener;
+import com.inno.home.model.event.HomeSelectEvent;
 import com.inno.home.model.navigate.HomeModel;
 import com.inno.home.widget.SlideEditRecycleView;
 
+import org.greenrobot.eventbus.EventBus;
+
 public class NavigateHomeDelegate extends BaseDelegateAdapter {
+
+    private int selectHomePosition;
+
+    public NavigateHomeDelegate(int selectHomePosition) {
+        this.selectHomePosition = selectHomePosition;
+    }
 
     @Override
     public int getItemViewType() {
@@ -41,7 +51,7 @@ public class NavigateHomeDelegate extends BaseDelegateAdapter {
         }
 
         @Override
-        public void bind(HomeModel homeModel) {
+        public void bind(final HomeModel homeModel) {
             home_title_view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -52,9 +62,17 @@ public class NavigateHomeDelegate extends BaseDelegateAdapter {
                 }
             });
             rv_home_list.setLayoutManager(new LinearLayoutManager(rv_home_list.getContext()));
-            rv_home_list.setAdapter(new NavigateHomeAdapter(homeModel.homeItemModels));
-            rv_home_list.setSingle(true);
-            rv_home_list.setNestedScrollingEnabled(false);
+            final NavigateHomeAdapter homeAdapter = new NavigateHomeAdapter(homeModel.homeItemModels);
+            homeAdapter.selectHome(selectHomePosition);
+            rv_home_list.setAdapter(homeAdapter);
+            rv_home_list.setOnItemClick(new OnItemClickListener() {
+                @Override
+                public void onItemClick(View view, int position) {
+                    homeAdapter.selectHome(position);
+                    EventBus.getDefault().post(new HomeSelectEvent(homeModel.homeItemModels.get(position)));
+                    homeAdapter.notifyDataSetChanged();
+                }
+            });
         }
     }
 }

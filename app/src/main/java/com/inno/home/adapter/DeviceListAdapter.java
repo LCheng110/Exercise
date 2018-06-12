@@ -94,6 +94,14 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceListAdapter.De
                     new DialogHelper().init(v.getContext()).setContentView(view).show();
                 }
             });
+            setOnDeleteListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    deviceModelList.remove(position);
+                    notifyItemRemoved(position);
+                    notifyItemRangeChanged(position, deviceModelList.size());
+                }
+            });
         }
     }
 }

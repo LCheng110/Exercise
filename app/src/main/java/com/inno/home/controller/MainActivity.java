@@ -1,6 +1,6 @@
 package com.inno.home.controller;
 
-import android.support.constraint.ConstraintLayout;
+import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.GridLayoutManager;
@@ -16,13 +16,27 @@ import android.widget.TextView;
 
 import com.inno.home.Navigation;
 import com.inno.home.R;
+import com.inno.home.adapter.DelegateAdapter;
 import com.inno.home.adapter.HomeDeviceAdapter;
-import com.inno.home.adapter.NavigateHomeAdapter;
+import com.inno.home.adapter.delegate.AdapterDelegateManager;
+import com.inno.home.adapter.delegate.navigation.NavigateContactDelegate;
+import com.inno.home.adapter.delegate.navigation.NavigateHomeDelegate;
+import com.inno.home.adapter.delegate.navigation.NavigateShareDelegate;
+import com.inno.home.adapter.delegate.navigation.NavigateUserDelegate;
 import com.inno.home.base.BaseActivity;
+import com.inno.home.controller.device.DeviceTypeActivity;
 import com.inno.home.dao.Session;
+import com.inno.home.model.DelegateModel;
 import com.inno.home.model.HomeDeviceModel;
+import com.inno.home.model.event.HomeSelectEvent;
+import com.inno.home.model.navigate.ContactModel;
 import com.inno.home.model.navigate.HomeModel;
-import com.inno.home.widget.SlideEditRecycleView;
+import com.inno.home.model.navigate.ShareModel;
+import com.inno.home.model.navigate.UserModel;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +51,8 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.toolbar)
     public Toolbar toolbar;
+    @BindView(R.id.toolbar_title)
+    public TextView toolbar_title;
     @BindView(R.id.drawer_navigation)
     public DrawerLayout drawerDevice;
     @BindView(R.id.rv_device_list)
@@ -46,33 +62,9 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.nv_bottom_setting)
     public ImageView nv_bottom_setting;
 
-    // 导航栏user布局
-    @BindView(R.id.user_view)
-    public ConstraintLayout user_view;
-    @BindView(R.id.user_avatar)
-    public ImageView user_avatar;
-    @BindView(R.id.user_message)
-    public ImageView user_message;
-    @BindView(R.id.user_name)
-    public TextView user_name;
-
-    // 导航栏用home局
-    @BindView(R.id.home_title_view)
-    public ConstraintLayout home_title_view;
-    @BindView(R.id.iv_nv_flag)
-    public ImageView iv_nv_flag;
-    @BindView(R.id.rv_home_list)
-    public SlideEditRecycleView rv_home_list;
-
-    // 导航栏share布局
-    @BindView(R.id.share_view)
-    public ConstraintLayout share_view;
-    @BindView(R.id.share_source)
-    public TextView share_source;
-
-    // 导航栏contact布局
-    @BindView(R.id.contact_view)
-    public ConstraintLayout contact_view;
+    // 导航栏列表布局
+    @BindView(R.id.nv_menu)
+    public RecyclerView nv_menu;
 
 
     List<HomeDeviceModel> homeDeviceModelList = new ArrayList<>();
@@ -92,8 +84,8 @@ public class MainActivity extends BaseActivity {
         }
         List<String> deviceNameList = new ArrayList<>();
         for (HomeDeviceModel homeDeviceModel : homeDeviceModelList) {
-            if (!TextUtils.isEmpty(homeDeviceModel.deviceName)) {
-                deviceNameList.add(homeDeviceModel.deviceName);
+            if (!TextUtils.isEmpty(homeDeviceModel.deviceGroupName)) {
+                deviceNameList.add(homeDeviceModel.deviceGroupName);
             }
         }
         Session.seHomeDevice(deviceNameList);
@@ -130,6 +122,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        List<DelegateModel> menuList = new ArrayList<>();
         HomeModel homeModel = new HomeModel();
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("sss"));
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("aaa"));
@@ -138,47 +131,30 @@ public class MainActivity extends BaseActivity {
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("bbb"));
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("bbb"));
 
-        // 用户布局内容初始化
-//        ImageLoader.loadCircleImage(user_avatar.getContext(), model.userAvatar, user_avatar);
-//        user_name.setText(model.userName);
-        user_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.showPerson(v.getContext());
+        menuList.add(new UserModel());
+        menuList.add(homeModel);
+        menuList.add(new ShareModel());
+        menuList.add(new ContactModel());
+        String lastHomeName = Session.getHomeName();
+        int index = 0;
+        if (!TextUtils.isEmpty(lastHomeName)) {
+            for (HomeModel.HomeItemModel homeItemModel : homeModel.homeItemModels) {
+                if (lastHomeName.equals(homeItemModel.homeName)) {
+                    index = homeModel.homeItemModels.indexOf(homeItemModel);
+                    break;
+                }
             }
-        });
-
-        // home布局内容初始化
-        home_title_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                v.setSelected(!v.isSelected());
-                rv_home_list.setVisibility(v.isSelected() ? View.VISIBLE : View.GONE);
-                iv_nv_flag.setRotation(v.isSelected() ? 90f : 0);
-            }
-        });
-        rv_home_list.setVisibility(View.VISIBLE);
-        rv_home_list.setLayoutManager(new LinearLayoutManager(rv_home_list.getContext()));
-        rv_home_list.setAdapter(new NavigateHomeAdapter(homeModel.homeItemModels));
-        rv_home_list.setNestedScrollingEnabled(false);
-        rv_home_list.setSingle(true);
-
-        // share布局内容初始化
-//        share_source.setText(model.shareName);
-        share_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.showSharedDetail(v.getContext());
-            }
-        });
-
-        // contact布局内容初始化
-        contact_view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Navigation.showContactUs(v.getContext());
-            }
-        });
+        }
+        nv_menu.setLayoutManager(new LinearLayoutManager(this));
+        AdapterDelegateManager delegateManager = new AdapterDelegateManager();
+        delegateManager.addDelegate(new NavigateUserDelegate());
+        delegateManager.addDelegate(new NavigateHomeDelegate(index));
+        delegateManager.addDelegate(new NavigateShareDelegate());
+        delegateManager.addDelegate(new NavigateContactDelegate());
+        DelegateAdapter menuAdapter = new DelegateAdapter();
+        menuAdapter.setDelegateManager(delegateManager);
+        menuAdapter.setDataList(menuList);
+        nv_menu.setAdapter(menuAdapter);
     }
 
     @Override
@@ -195,5 +171,33 @@ public class MainActivity extends BaseActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(HomeSelectEvent event) {
+        toolbar_title.setText(event.homeItemModel.homeName);
+        drawerDevice.closeDrawers();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data != null) {
+            HomeDeviceModel homeDeviceModel = new HomeDeviceModel(data.getCharSequenceExtra(DeviceTypeActivity.TYPE_NAME).toString());
+            homeDeviceModelList.add(homeDeviceModelList.size() - 1, homeDeviceModel);
+            homeDeviceAdapter.notifyItemRangeChanged(0, homeDeviceModelList.size());
+        }
     }
 }

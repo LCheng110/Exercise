@@ -10,6 +10,7 @@ public class Session {
     public static final int LANGUAGE_CHINESE = 1;
     private static final String SP_KEY_LANGUAGE = "language";                                 //SP key 记录当前语言
     private static final String SP_KEY_HOME_DEVICE = "home_list";                                 //SP key 记录当前语言
+    private static final String SP_KEY_HOME_NAME = "home_name";                                 //SP key 记录Home的名称
 
     public static int getLanguage() {
         return SPUtil.getInt(SP_KEY_LANGUAGE, LANGUAGE_ENDLISH);
@@ -17,6 +18,14 @@ public class Session {
 
     public static void seLanguage(int flag) {
         SPUtil.setInt(SP_KEY_LANGUAGE, flag);
+    }
+
+    public static String getHomeName() {
+        return SPUtil.getString(SP_KEY_HOME_NAME);
+    }
+
+    public static void seHomeName(String name) {
+        SPUtil.setString(SP_KEY_HOME_NAME, name);
     }
 
     public static List<String> getHomeDevice() {

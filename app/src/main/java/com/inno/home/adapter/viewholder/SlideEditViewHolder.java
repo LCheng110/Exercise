@@ -1,6 +1,7 @@
 package com.inno.home.adapter.viewholder;
 
 import android.support.annotation.StringRes;
+import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -87,5 +88,17 @@ public abstract class SlideEditViewHolder extends BaseViewHolder {
 
     public void setOnItemClickListener(SlideEditRecycleView.OnItemClickListener onItemClickListener) {
         this.onItemClickListener = onItemClickListener;
+    }
+
+    public int getVisibilityCount() {
+        int count = 0;
+        if (tv_item_edit.getVisibility() == View.VISIBLE) {
+            count++;
+        }
+        if (tv_item_delete.getVisibility() == View.VISIBLE) {
+            count++;
+        }
+        Log.i("sss", "getVisibilityCount: "+count);
+        return count;
     }
 }

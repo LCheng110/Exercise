@@ -4,7 +4,6 @@ import android.content.Context;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -43,7 +42,6 @@ public class SlideEditRecycleView extends RecyclerView {
     private boolean isItemMoving; // item 是否正在移动中
     private boolean isStartScroll; // 是否开始滑动状态
     private boolean isListDragging; // 是否说列表上下滑动拖拽
-    private boolean isSingle; // 是否是单个编辑item
 
     public SlideEditRecycleView(Context context) {
         this(context, null);
@@ -64,15 +62,10 @@ public class SlideEditRecycleView extends RecyclerView {
         this.onItemClick = onItemClick;
     }
 
-    public void setSingle(boolean single) {
-        isSingle = single;
-    }
-
     @Override
     public boolean dispatchTouchEvent(MotionEvent e) {
         int x = (int) e.getX();
         int y = (int) e.getY();
-        Log.i("sss", "dispatchTouchEvent: "+e.getAction());
         switch (e.getAction()) {
             case MotionEvent.ACTION_MOVE:
                 int dx = mDispatchLastX - x;
@@ -103,9 +96,9 @@ public class SlideEditRecycleView extends RecyclerView {
                 if (mLayoutStatus == LAYOUT_STATE_HIDE) {
                     mItemLayout = viewHolder.itemView;
                     mPosition = viewHolder.getAdapterPosition();
-                    if (isSingle) {
+                    if (viewHolder.getVisibilityCount() == 1) {
                         mLayoutLength = (int) Math.abs(getResources().getDimension(R.dimen.item_edit_hide_width_single));
-                    } else {
+                    } else if (viewHolder.getVisibilityCount() == 2) {
                         mLayoutLength = (int) Math.abs(getResources().getDimension(R.dimen.item_edit_hide_width));
                     }
                     viewHolder.setOnItemClickListener(new OnItemClickListener() {
@@ -131,7 +124,7 @@ public class SlideEditRecycleView extends RecyclerView {
                 int dy = mLastY - y;
 
                 int scrollX = mItemLayout.getScrollX();
-                if (Math.abs(dx) > 2 * mTouchSlop && Math.abs(dx) > Math.abs(dy)) {
+                if (Math.abs(dx) > 3 * mTouchSlop && Math.abs(dx) > Math.abs(dy)) {
                     isItemMoving = true;
                     if (scrollX + dx <= 0) {//左边界检测
                         mItemLayout.scrollTo(0, 0);
