@@ -55,6 +55,7 @@ public class DeviceTypeActivity extends BaseActivity {
                     finish();
                 }
             }, getString(R.string.save), 0, 0);
+            titleBar.setRightMenuEventVisibility(View.GONE);
         }
         rv_type_list.setLayoutManager(new LinearLayoutManager(context));
         rv_type_list.setAdapter(deviceTypeAdapter = new DeviceTypeAdapter(typeList));

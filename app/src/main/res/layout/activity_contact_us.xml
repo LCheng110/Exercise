@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
     <com.inno.home.widget.UCTitleBar
@@ -11,54 +13,109 @@
 
     </com.inno.home.widget.UCTitleBar>
 
-    <EditText
-        android:id="@+id/et_topic"
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:background="@drawable/shape_stroke_connect"
-        android:hint="Topic"
-        android:minHeight="40dp"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:textSize="14sp" />
+        android:layout_height="wrap_content">
 
-    <EditText
-        android:id="@+id/et_details"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:background="@drawable/shape_stroke_connect"
-        android:gravity="top"
-        android:hint="Details"
-        android:minHeight="140dp"
-        android:paddingBottom="10dp"
-        android:paddingEnd="@dimen/activity_horizontal_margin"
-        android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingTop="10dp"
-        android:textSize="14sp" />
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:background="@drawable/shape_stroke_connect"
-        android:minHeight="120dp">
-
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Pictures"
-            android:paddingBottom="10dp"
-            android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:paddingStart="@dimen/activity_horizontal_margin"
-            android:paddingTop="10dp"
-            android:textSize="14sp" />
-    </FrameLayout>
+            android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/btn_submit"
-        style="@style/ButtonBlueStyle"
-        android:layout_marginTop="@dimen/btn_height"
-        android:text="@string/text_submit" />
+            <EditText
+                android:id="@+id/et_topic"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/shape_stroke_connect"
+                android:hint="Topic"
+                android:maxLength="50"
+                android:minHeight="40dp"
+                android:padding="10dp"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/topic_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                tools:text="@string/app_name"
+                android:textColor="@color/text_hint"
+                android:textSize="@dimen/text_size_hint" />
+
+            <EditText
+                android:id="@+id/et_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/shape_stroke_connect"
+                android:gravity="top"
+                android:hint="Details"
+                android:maxLength="100"
+                android:minHeight="140dp"
+                android:padding="10dp"
+                android:textCursorDrawable="@null"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/detail_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                tools:text="@string/app_name"
+                android:textColor="@color/text_hint"
+                android:textSize="@dimen/text_size_hint" />
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:background="@drawable/shape_stroke_connect"
+                android:minHeight="120dp">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Pictures"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:paddingTop="10dp"
+                    android:textSize="14sp" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_pic_list"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_picture_add"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+            </android.support.constraint.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/pic_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                tools:text="@string/app_name"
+                android:textColor="@color/text_hint"
+                android:textSize="@dimen/text_size_hint" />
+
+            <TextView
+                android:id="@+id/btn_submit"
+                style="@style/ButtonBlueStyle"
+                android:layout_marginTop="@dimen/btn_height"
+                android:text="@string/text_submit" />
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>
