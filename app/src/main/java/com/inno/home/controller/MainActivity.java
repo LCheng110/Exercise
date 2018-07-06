@@ -26,6 +26,8 @@ import com.inno.home.adapter.delegate.navigation.NavigateUserDelegate;
 import com.inno.home.base.BaseActivity;
 import com.inno.home.controller.device.DeviceTypeActivity;
 import com.inno.home.dao.Session;
+import com.inno.home.dao.UserCMD;
+import com.inno.home.listen.net.NetRequestListener;
 import com.inno.home.model.DelegateModel;
 import com.inno.home.model.HomeDeviceModel;
 import com.inno.home.model.event.HomeSelectEvent;
@@ -33,12 +35,16 @@ import com.inno.home.model.navigate.ContactModel;
 import com.inno.home.model.navigate.HomeModel;
 import com.inno.home.model.navigate.ShareModel;
 import com.inno.home.model.navigate.UserModel;
+import com.inno.home.utils.ActivityPageManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -68,8 +74,10 @@ public class MainActivity extends BaseActivity {
 
 
     List<HomeDeviceModel> homeDeviceModelList = new ArrayList<>();
+    List<DelegateModel> menuList = new ArrayList<>();
 
     private HomeDeviceAdapter homeDeviceAdapter;
+    private DelegateAdapter menuAdapter;
 
     @Override
     protected int initLayout() {
@@ -78,6 +86,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initValue() {
+        ActivityPageManager.getInstance().finishAllActivityExceptOne(this.getClass());
         if (homeDeviceModelList.size() == 0) {
             homeDeviceModelList.add(new HomeDeviceModel("Everything"));
             homeDeviceModelList.add(new HomeDeviceModel(true));
@@ -122,7 +131,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        List<DelegateModel> menuList = new ArrayList<>();
         HomeModel homeModel = new HomeModel();
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("sss"));
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("aaa"));
@@ -151,10 +159,11 @@ public class MainActivity extends BaseActivity {
         delegateManager.addDelegate(new NavigateHomeDelegate(index));
         delegateManager.addDelegate(new NavigateShareDelegate());
         delegateManager.addDelegate(new NavigateContactDelegate());
-        DelegateAdapter menuAdapter = new DelegateAdapter();
+        menuAdapter = new DelegateAdapter();
         menuAdapter.setDelegateManager(delegateManager);
         menuAdapter.setDataList(menuList);
         nv_menu.setAdapter(menuAdapter);
+        getUserInfo();
     }
 
     @Override
@@ -199,5 +208,36 @@ public class MainActivity extends BaseActivity {
             homeDeviceModelList.add(homeDeviceModelList.size() - 1, homeDeviceModel);
             homeDeviceAdapter.notifyItemRangeChanged(0, homeDeviceModelList.size());
         }
+    }
+
+    private void getUserInfo() {
+        UserCMD.getUserInfo(new HashMap<String, String>(), new NetRequestListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    JSONObject data = object.getJSONObject("data");
+                    String avatar = data.getString("avatar");
+                    long id = data.getLong("id");
+                    String username = data.getString("username");
+                    Session.setAvatar(avatar);
+                    Session.setUserId(id);
+                    Session.setNickName(username);
+                    if (menuList.get(0) instanceof UserModel) {
+                        UserModel userModel = (UserModel) menuList.get(0);
+                        userModel.userAvatar = avatar;
+                        userModel.userName = username;
+                        menuAdapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        });
     }
 }

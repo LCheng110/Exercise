@@ -1,7 +1,7 @@
 package com.inno.home.controller.login;
 
+import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.os.AsyncTask;
 import android.support.transition.Transition;
 import android.support.transition.TransitionInflater;
 import android.support.transition.TransitionManager;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ScrollView;
 
+import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
 import com.inno.home.config.ServiceParam;
@@ -18,10 +19,14 @@ import com.inno.home.controller.login.scene.LoginScene;
 import com.inno.home.controller.login.scene.RegisterNameScene;
 import com.inno.home.controller.login.scene.SetPasswordScene;
 import com.inno.home.controller.login.scene.SubmitBaseScene;
+import com.inno.home.dao.Session;
 import com.inno.home.dao.UserCMD;
 import com.inno.home.listen.net.NetRequestListener;
-import com.inno.home.model.BaseModel;
+import com.inno.home.utils.ToastUtil;
 import com.inno.home.utils.UiUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,18 +42,6 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
     public static final int INPUT_VIEW_FLAG_LOGIN = 0;
     public static final int INPUT_VIEW_FLAG_REGISTER = 1;
     public static final int INPUT_VIEW_FLAG_PASSWORD = 2;
-
-    private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    private static final String[] DUMMY_CREDENTIALS = new String[]{"foo@example.com:hello", "bar@example.com:world"};
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
-    private UserLoginTask mAuthTask = null;
 
     private Transition mSceneTransition;
     private LoginScene mLoginScene;
@@ -98,7 +91,7 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
                     titleBar.setRightMenuEvent(new OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            Navigation.showForgotPassword(context);
                         }
                     }, getString(R.string.prompt_forget_password), ContextCompat.getColor(this, R.color.text_hint), 0);
                 }
@@ -124,18 +117,92 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
     public void onSubmit(View view) {
         switch (view.getId()) {
             case R.id.btn_submit_login:
-                TransitionManager.go(mRegisterNameScene, mSceneTransition);
+                Map<String, String> map = new HashMap<>();
+                map.put(ServiceParam.LOGIN_TYPE_PASSWORD, "other");
+                map.put(ServiceParam.EMAIL, mLoginScene.getEmail());
+                map.put(ServiceParam.PASSWORD, mLoginScene.getPassword());
+                final ProgressDialog loginDialog = showProgressDialog("", "正在登陆中，请稍后~");
+                UserCMD.login(map, new NetRequestListener() {
+                    @Override
+                    public void onSuccess(String response) {
+                        loginDialog.cancel();
+                        try {
+                            JSONObject object = new JSONObject(response);
+                            Session.seAccessToken(object.getString(Session.SP_KEY_ACCESS_TOKEN));
+                            Session.seRefreshToken(object.getString(Session.SP_KEY_REFRESH_TOKEN));
+                            Navigation.showMain(context);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            ToastUtil.showToast("登陆失败，参数异常");
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        loginDialog.cancel();
+                    }
+                });
                 break;
             case R.id.btn_submit_name:
                 TransitionManager.go(mEmailScene, mSceneTransition);
                 break;
             case R.id.btn_submit_email:
-                TransitionManager.go(mSetPasswordScene, mSceneTransition);
-                Map<String, String> map = new HashMap<>();
-                map.put(ServiceParam.EMAIL, mEmailScene.getEmail());
-                UserCMD.getVerifyCode(map, new NetRequestListener() {
+                JSONObject object = new JSONObject();
+                try {
+                    object.put(ServiceParam.EMAIL, mEmailScene.getEmail());
+                    object.put(ServiceParam.TYPE, UserCMD.REGISTER);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                final ProgressDialog verifyDialog = showProgressDialog("", "正在发送验证码，请稍后~");
+                UserCMD.getVerifyCode(object.toString(), new NetRequestListener() {
                     @Override
-                    public void onSuccess(BaseModel baseModel) {
+                    public void onSuccess(String response) {
+                        verifyDialog.cancel();
+                        TransitionManager.go(mSetPasswordScene, mSceneTransition);
+                    }
+
+                    @Override
+                    public void onError(Throwable throwable) {
+                        verifyDialog.cancel();
+                    }
+                });
+                break;
+            case R.id.btn_submit_password:
+                final JSONObject verifyObject = new JSONObject();
+                final JSONObject registerObject = new JSONObject();
+                try {
+                    verifyObject.put(ServiceParam.EMAIL, mEmailScene.getEmail());
+                    verifyObject.put(ServiceParam.TYPE, UserCMD.REGISTER);
+                    verifyObject.put(ServiceParam.CODE, mSetPasswordScene.getVaildCode());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                final ProgressDialog registerDialog = showProgressDialog("", "请稍后~");
+                UserCMD.verifyCodeEnsure(verifyObject.toString(), new NetRequestListener() {
+                    @Override
+                    public void onSuccess(String response) {
+                        try {
+                            registerObject.put(ServiceParam.NAME_FIRST, mRegisterNameScene.getFirstName());
+                            registerObject.put(ServiceParam.NAME_LAST, mRegisterNameScene.getLastName());
+                            registerObject.put(ServiceParam.EMAIL, mEmailScene.getEmail());
+                            registerObject.put(ServiceParam.PASSWORD, mSetPasswordScene.getPassword());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        UserCMD.register(registerObject.toString(), new NetRequestListener() {
+                            @Override
+                            public void onSuccess(String response) {
+                                registerDialog.cancel();
+                                Navigation.showLogin(context);
+                                finish();
+                            }
+
+                            @Override
+                            public void onError(Throwable throwable) {
+                                registerDialog.cancel();
+                            }
+                        });
                     }
 
                     @Override
@@ -143,9 +210,6 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
 
                     }
                 });
-                break;
-            case R.id.btn_submit_password:
-                TransitionManager.go(mLoginScene, mSceneTransition);
                 break;
         }
     }
@@ -201,66 +265,5 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
 //            mAuthTask.execute((Void) null);
 //        }
 //    }
-    private boolean isEmailValid(String email) {
-        //TODO: Replace this with your own logic
-        return email.contains("@");
-    }
-
-    private boolean isPasswordValid(String password) {
-        //TODO: Replace this with your own logic
-        return password.length() > 4;
-    }
-
-    /**
-     * Represents an asynchronous login/registration task used to authenticate
-     * the user.
-     */
-    public class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
-
-        private final String mEmail;
-        private final String mPassword;
-
-        UserLoginTask(String email, String password) {
-            mEmail = email;
-            mPassword = password;
-        }
-
-        @Override
-        protected Boolean doInBackground(Void... params) {
-            // TODO: attempt authentication against a network service.
-
-            try {
-                // Simulate network access.
-                Thread.sleep(2000);
-            } catch (InterruptedException e) {
-                return false;
-            }
-
-            for (String credential : DUMMY_CREDENTIALS) {
-                String[] pieces = credential.split(":");
-                if (pieces[0].equals(mEmail)) {
-                    // Account exists, return true if the password matches.
-                    return pieces[1].equals(mPassword);
-                }
-            }
-
-            // TODO: register the new account here.
-            return true;
-        }
-
-        @Override
-        protected void onPostExecute(final Boolean success) {
-            mAuthTask = null;
-
-            if (success) {
-                finish();
-            }
-        }
-
-        @Override
-        protected void onCancelled() {
-            mAuthTask = null;
-        }
-    }
 }
 

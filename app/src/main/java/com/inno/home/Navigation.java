@@ -43,6 +43,12 @@ public class Navigation {
         context.startActivity(intent);
     }
 
+    public static void showForgotPassword(Context context) {
+        Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra(LoginActivity.INPUT_VIEW_FLAG, LoginActivity.INPUT_VIEW_FLAG_PASSWORD);
+        context.startActivity(intent);
+    }
+
     public static void showPerson(Context context) {
         context.startActivity(new Intent(context, PersonActivity.class));
     }

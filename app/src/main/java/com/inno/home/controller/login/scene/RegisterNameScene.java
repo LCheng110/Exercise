@@ -11,6 +11,7 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,10 +27,11 @@ public class RegisterNameScene extends SubmitBaseScene {
 
     // Register Name View references.
     private TextView mRegisterPromptView;
-    private TextInputLayout tl_input_first,tl_input_second;
+    private TextInputLayout tl_input_first, tl_input_second;
     private EditText mRegisterNameFirstEditView;
     private ImageView mNameFirstClearView, mNameSecondClearView;
     private EditText mRegisterNameSecondEditView;
+    private Button mSubmitButton;
 
     @NonNull
     public static RegisterNameScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
@@ -60,6 +62,7 @@ public class RegisterNameScene extends SubmitBaseScene {
         mNameFirstClearView = mSceneView.findViewById(R.id.iv_input_icon_first);
         mRegisterNameSecondEditView = mSceneView.findViewById(R.id.ev_input_second);
         mNameSecondClearView = mSceneView.findViewById(R.id.iv_input_icon_second);
+        mSubmitButton = mSceneView.findViewById(R.id.btn_submit_name);
         mRegisterNameFirstEditView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -72,6 +75,7 @@ public class RegisterNameScene extends SubmitBaseScene {
             @Override
             public void afterTextChanged(Editable editable) {
                 mNameFirstClearView.setVisibility(editable.length() > 0 ? View.VISIBLE : View.INVISIBLE);
+                mSubmitButton.setSelected(canSubmitName());
             }
         });
         mRegisterNameSecondEditView.addTextChangedListener(new TextWatcher() {
@@ -86,6 +90,7 @@ public class RegisterNameScene extends SubmitBaseScene {
             @Override
             public void afterTextChanged(Editable editable) {
                 mNameSecondClearView.setVisibility(editable.length() > 0 ? View.VISIBLE : View.INVISIBLE);
+                mSubmitButton.setSelected(canSubmitName());
             }
         });
         mNameFirstClearView.setOnClickListener(new View.OnClickListener() {
@@ -100,7 +105,7 @@ public class RegisterNameScene extends SubmitBaseScene {
                 mRegisterNameSecondEditView.setText(null);
             }
         });
-        mSceneView.findViewById(R.id.btn_submit_name).setOnClickListener(new View.OnClickListener() {
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(mRegisterNameFirstEditView.getText().toString())) {
@@ -129,5 +134,11 @@ public class RegisterNameScene extends SubmitBaseScene {
 
     public String getLastName() {
         return mRegisterNameSecondEditView.getText().toString();
+    }
+
+    private boolean canSubmitName() {
+        boolean firstNameNotNull = mRegisterNameFirstEditView.getText().length() > 0;
+        boolean secondNameNotNull = mRegisterNameSecondEditView.getText().length() > 0;
+        return firstNameNotNull && secondNameNotNull;
     }
 }

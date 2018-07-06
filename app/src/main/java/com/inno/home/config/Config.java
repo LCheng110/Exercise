@@ -1,5 +1,5 @@
 package com.inno.home.config;
 
 public interface Config {
-    String SERVICE_ADDRESS = "https://inno.kenxu.net:8443/";
+    String SERVICE_ADDRESS = "https://api.china-inno.com/";
 }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,6 +27,7 @@ public class InputEmailScene extends SubmitBaseScene {
     private TextView mEmailPromptView;
     private AutoCompleteTextView mEmailEditView;
     private ImageView mEmailClearView;
+    private Button mSubmitButton;
 
     @NonNull
     public static InputEmailScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
@@ -52,6 +54,7 @@ public class InputEmailScene extends SubmitBaseScene {
         mEmailPromptView = mSceneView.findViewById(R.id.input_prompt);
         mEmailEditView = mSceneView.findViewById(R.id.ev_input_first);
         mEmailClearView = mSceneView.findViewById(R.id.iv_input_icon_first);
+        mSubmitButton = mSceneView.findViewById(R.id.btn_submit_email);
         mEmailEditView.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -64,6 +67,7 @@ public class InputEmailScene extends SubmitBaseScene {
             @Override
             public void afterTextChanged(Editable editable) {
                 mEmailClearView.setVisibility(editable.length() > 0 ? View.VISIBLE : View.INVISIBLE);
+                mSubmitButton.setSelected(canSubmitEmail());
             }
         });
         mEmailClearView.setOnClickListener(new View.OnClickListener() {
@@ -72,7 +76,7 @@ public class InputEmailScene extends SubmitBaseScene {
                 mEmailEditView.setText(null);
             }
         });
-        mSceneView.findViewById(R.id.btn_submit_email).setOnClickListener(new View.OnClickListener() {
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mEmailEditView.getText().toString().contains("@")) {
@@ -90,5 +94,10 @@ public class InputEmailScene extends SubmitBaseScene {
 
     public String getEmail() {
         return mEmailEditView.getText().toString();
+    }
+
+    private boolean canSubmitEmail() {
+        boolean firstNameNotNull = mEmailEditView.getText().toString().contains("@");
+        return firstNameNotNull;
     }
 }

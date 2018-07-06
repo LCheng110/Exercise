@@ -7,8 +7,11 @@ package com.inno.home.config;
 
 public interface ServiceInterface {
 
-    String USER_VERIFY_CODE = "passport/verification/create/registration";
+    String USER_VERIFY_CODE = "passport/verification";
+    String USER_VERIFY_CODE_ENSURE = "passport/verification/verify";
     String USER_REGISTER = "passport/account/register";
+    String USER_LOGIN = "auth/oauth/token";
+    String USER_INFO = "passport/account/me";
 //    String USER_COMMIT_AUDIT = "user/audit/commitToAudit";
 //    String USER_AUDIT_REAL_NAME = "user/audit/authenticateRealName";
 //    String USER_EMUSER_ARTICLE = "user/getEMUserArticle";

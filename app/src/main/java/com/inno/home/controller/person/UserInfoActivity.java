@@ -1,26 +1,27 @@
 package com.inno.home.controller.person;
 
 import android.content.DialogInterface;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inno.home.Navigation;
 import com.inno.home.R;
-import com.inno.home.adapter.UserInfoAdapter;
-import com.inno.home.adapter.divide.MarginStartItemDecoration;
 import com.inno.home.base.BaseActivity;
 import com.inno.home.controller.dialog.DialogHelper;
-import com.inno.home.listen.click.OnItemClickListener;
-import com.inno.home.model.UserInfoModel;
+import com.inno.home.dao.UserCMD;
+import com.inno.home.listen.net.NetRequestListener;
+import com.inno.home.utils.ToastUtil;
+import com.inno.home.utils.glide.ImageLoader;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class UserInfoActivity extends BaseActivity {
 
@@ -32,15 +33,30 @@ public class UserInfoActivity extends BaseActivity {
     private static final int INDEX_OF_FACEBOOK = 5;
     private static final int INDEX_OF_PASSWORD = 6;
 
-    @BindView(R.id.rv_info_list)
-    RecyclerView rv_info_list;
-    private String[] titleArray;
-    private UserInfoAdapter userInfoAdapter;
-    private List<UserInfoModel> userInfoModelList = new ArrayList<>();
-    private MarginStartItemDecoration itemDecoration;
+    @BindView(R.id.iv_avatar)
+    ImageView iv_avatar;
+    @BindView(R.id.tv_content_id)
+    TextView tv_content_id;
+    @BindView(R.id.tv_content_name)
+    TextView tv_content_name;
+    @BindView(R.id.tv_content_gender)
+    TextView tv_content_gender;
+    @BindView(R.id.tv_content_email)
+    TextView tv_content_email;
+    @BindView(R.id.tv_content_facebook)
+    TextView tv_content_facebook;
+    @BindView(R.id.tv_content_password)
+    TextView tv_content_password;
 
     public TextView alert_prompt;
     public EditText alert_edit;
+
+    String avatar;
+    String id;
+    String username;
+    String gender;
+    String email;
+    String facebookUserId;
 
     @Override
     protected int initLayout() {
@@ -49,45 +65,10 @@ public class UserInfoActivity extends BaseActivity {
 
     @Override
     protected void initValue() {
-        titleArray = getResources().getStringArray(R.array.user_item);
-        for (String title : titleArray) {
-            userInfoModelList.add(new UserInfoModel(title));
-        }
     }
 
     @Override
     protected void initView() {
-        userInfoAdapter = new UserInfoAdapter(Arrays.asList(titleArray));
-        rv_info_list.setLayoutManager(new LinearLayoutManager(context));
-        rv_info_list.setAdapter(userInfoAdapter);
-        itemDecoration = new MarginStartItemDecoration(context, R.color.colorLine,
-                getResources().getDimensionPixelSize(R.dimen.line_width));
-        itemDecoration.setmMarginStart(getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin));
-        rv_info_list.addItemDecoration(itemDecoration);
-        userInfoAdapter.setOnItemClickListener(new OnItemClickListener() {
-
-            @Override
-            public void onItemClick(View view, int position) {
-                switch (position) {
-                    case INDEX_OF_AVATAR:
-                        break;
-                    case INDEX_OF_ID:
-                        break;
-                    case INDEX_OF_NAME:
-                        break;
-                    case INDEX_OF_GENDER:
-                        break;
-                    case INDEX_OF_EMAIL:
-                        showAlertDialog(position);
-                        break;
-                    case INDEX_OF_FACEBOOK:
-                        break;
-                    case INDEX_OF_PASSWORD:
-                        showAlertDialog(position);
-                        break;
-                }
-            }
-        });
     }
 
     @Override
@@ -95,6 +76,66 @@ public class UserInfoActivity extends BaseActivity {
         if (titleBar != null) {
             titleBar.setTitleText(R.string.person_text_account);
         }
+        getUserInfo();
+    }
+
+    @OnClick({R.id.person_item_avatar, R.id.person_item_id, R.id.person_item_name, R.id.person_item_gender,
+            R.id.person_item_email, R.id.person_item_facebook, R.id.person_item_password})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.person_item_avatar:
+                break;
+            case R.id.person_item_id:
+                break;
+            case R.id.person_item_name:
+                break;
+            case R.id.person_item_gender:
+                break;
+            case R.id.person_item_email:
+                showAlertDialog(INDEX_OF_EMAIL);
+                break;
+            case R.id.person_item_facebook:
+                break;
+            case R.id.person_item_password:
+                showAlertDialog(INDEX_OF_PASSWORD);
+                break;
+        }
+    }
+
+    private void getUserInfo() {
+        UserCMD.getUserInfo(new HashMap<String, String>(), new NetRequestListener() {
+            @Override
+            public void onSuccess(String response) {
+                try {
+                    JSONObject object = new JSONObject(response);
+                    JSONObject data = object.getJSONObject("data");
+                    avatar = data.getString("avatar");
+                    id = data.getString("id");
+                    username = data.getString("username");
+                    gender = data.getString("gender");
+                    email = data.getString("email");
+                    facebookUserId = data.getString("facebookUserId");
+                    refreshUserInfo();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    ToastUtil.showToast("初始化用户信息失败");
+                    finish();
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+
+            }
+        });
+    }
+
+    private void refreshUserInfo() {
+        ImageLoader.loadCircleImage(iv_avatar.getContext(), avatar, iv_avatar);
+        tv_content_id.setText(id);
+        tv_content_name.setText(username);
+        tv_content_gender.setText(gender);
+        tv_content_email.setText(email);
     }
 
     private void showAlertDialog(final int type) {

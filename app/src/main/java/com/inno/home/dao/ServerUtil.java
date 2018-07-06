@@ -1,16 +1,17 @@
 package com.inno.home.dao;
 
 import android.accounts.NetworkErrorException;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.inno.home.R;
 import com.inno.home.config.ServiceCode;
 import com.inno.home.listen.net.NetRequestListener;
-import com.inno.home.model.BaseModel;
 import com.inno.home.utils.AppUtil;
 import com.inno.home.utils.NetWorkUtil;
 import com.inno.home.utils.ToastUtil;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.HttpException;
 
 public class ServerUtil {
@@ -63,6 +65,15 @@ public class ServerUtil {
     }
 
     /**
+     * POST请求
+     * 上传文件
+     */
+    public static void uploadFile(String url,
+                                  RequestBody body, Map<String, String> map, NetRequestListener requestListener) {
+        request(REQUEST_TYPE_POST, url, body, map, null, requestListener);
+    }
+
+    /**
      * PATCH请求
      */
     public static void patch(String url,
@@ -97,16 +108,19 @@ public class ServerUtil {
         if (!checkNetworkAvailable(requestListener)) {
             return;
         }
-        Observer<BaseModel> observer = new Observer<BaseModel>() {
+        Observer<ResponseBody> observer = new Observer<ResponseBody>() {
             @Override
             public void onSubscribe(Disposable d) {
             }
 
             @Override
-            public void onNext(BaseModel model) {
-                successHandle(model);
-                if (requestListener != null && model != null) {
-                    requestListener.onSuccess(model);
+            public void onNext(ResponseBody model) {
+                try {
+                    if (requestListener != null && model != null) {
+                        requestListener.onSuccess(successHandle(model));
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
 
@@ -127,10 +141,10 @@ public class ServerUtil {
             newMap.putAll(map);
         }
         Map<String, String> newHeadMap = new HashMap<>();
+        addPublicHead(newHeadMap);
         if (headMap != null) {
             newHeadMap.putAll(headMap);
         }
-        addPublicHead(newHeadMap);
         switch (requestType) {
             case REQUEST_TYPE_GET:
                 ServerManager.getApi().Obget(url, newHeadMap, newMap)
@@ -178,11 +192,10 @@ public class ServerUtil {
         return true;
     }
 
-    private static void successHandle(BaseModel baseModel) {
-        if (baseModel != null) {
-            Log.i("response", "onNext: " + baseModel.getData());
-        }
-
+    private static String successHandle(ResponseBody baseModel) throws IOException {
+        String responseJson = baseModel.string().trim();
+        Log.i("Response", "onNext: " + responseJson);
+        return responseJson;
     }
 
     private static void errorHandle(Throwable e) {
@@ -190,6 +203,7 @@ public class ServerUtil {
         if (e instanceof HttpException) {
             exception = (HttpException) e;
             Log.i("response", "errorHandle: " + exception.getMessage());
+            ToastUtil.showToast(exception.getMessage());
             if (exception.code() == ServiceCode.TOKEN_FAILED) {
 //                Session.setUserId(0);
 //                ToastUtil.showToast(R.string.login_token_filed);
@@ -205,8 +219,11 @@ public class ServerUtil {
     }
 
     public static void addPublicHead(Map<String, String> newHeadMap) {
-        newHeadMap.put("content-type", "application/json;charset=utf-8");
+        newHeadMap.put("content-type", "application/json"); // ;charset=utf-8
         newHeadMap.put("charset", "utf-8");
         newHeadMap.put("version", AppUtil.getAppVersion(AppUtil.getContext()));
+        if (!TextUtils.isEmpty(Session.getAccessToken())) {
+            newHeadMap.put("authorization", "Bearer " + Session.getAccessToken());
+        }
     }
 }

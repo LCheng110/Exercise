@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <com.inno.home.widget.UCTitleBar
         android:id="@+id/title_bar"
@@ -12,11 +14,215 @@
 
     </com.inno.home.widget.UCTitleBar>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_info_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/title_bar">
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/person_item_avatar"
+        style="@style/PersonItemStyle">
 
-    </android.support.v7.widget.RecyclerView>
-</android.support.constraint.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_title_avatar"
+            style="@style/PersonTextStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/person_text_avatar" />
+
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_guide_avatar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_guide_avatar"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/include_divider_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/person_item_id"
+        style="@style/PersonItemStyle">
+
+        <TextView
+            android:id="@+id/tv_title_id"
+            style="@style/PersonTextStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/person_text_id" />
+
+        <TextView
+            android:id="@+id/tv_content_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_guide_id"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_guide_id"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/include_divider_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/person_item_name"
+        style="@style/PersonItemStyle">
+
+        <TextView
+            android:id="@+id/tv_title_name"
+            style="@style/PersonTextStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/person_text_name" />
+
+        <TextView
+            android:id="@+id/tv_content_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_guide_name"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_guide_name"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/include_divider_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/person_item_gender"
+        style="@style/PersonItemStyle">
+
+        <TextView
+            android:id="@+id/tv_title_gender"
+            style="@style/PersonTextStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/person_text_gender" />
+
+        <TextView
+            android:id="@+id/tv_content_gender"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_guide_gender"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_guide_gender"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/include_divider_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/person_item_email"
+        style="@style/PersonItemStyle">
+
+        <TextView
+            android:id="@+id/tv_title_email"
+            style="@style/PersonTextStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/person_text_email" />
+
+        <TextView
+            android:id="@+id/tv_content_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_guide_email"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_guide_email"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/include_divider_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/person_item_facebook"
+        style="@style/PersonItemStyle">
+
+        <TextView
+            android:id="@+id/tv_title_facebook"
+            style="@style/PersonTextStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/person_text_facebook" />
+
+        <TextView
+            android:id="@+id/tv_content_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_guide_facebook"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_guide_facebook"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/include_divider_hor_margin_start" />
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/person_item_password"
+        style="@style/PersonItemStyle">
+
+        <TextView
+            android:id="@+id/tv_title_password"
+            style="@style/PersonTextStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:text="@string/person_text_password" />
+
+        <TextView
+            android:id="@+id/tv_content_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/iv_guide_password"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_guide_password"
+            style="@style/PersonGuideStyle"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </android.support.constraint.ConstraintLayout>
+
+    <include layout="@layout/include_divider_hor_margin_start" />
+</LinearLayout>

@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.inno.home.R;
+import com.inno.home.utils.EncryptUtil;
 
 /**
  * Created by lcheng on 2018/4/17.
@@ -85,6 +86,6 @@ public class SetPasswordScene extends SubmitBaseScene {
     }
 
     public String getPassword() {
-        return mSetPasswordEditView.getText().toString();
+        return EncryptUtil.md5(mSetPasswordEditView.getText().toString());
     }
 }

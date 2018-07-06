@@ -8,6 +8,8 @@ import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
 import com.inno.home.controller.dialog.DialogHelper;
+import com.inno.home.dao.Session;
+import com.inno.home.utils.AppUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -40,7 +42,7 @@ public class PersonActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-
+        person_text_user.setText(Session.getNickName());
     }
 
     @OnClick({R.id.person_item_user, R.id.person_item_language, R.id.person_item_about, R.id.sign_out})
@@ -61,7 +63,8 @@ public class PersonActivity extends BaseActivity {
                         .setPositiveListener(new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
+                                Navigation.showLoginGuide(context);
+                                AppUtil.clearCache();
                             }
                         }).show();
                 break;

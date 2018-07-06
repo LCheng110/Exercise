@@ -89,7 +89,7 @@ public class ServerManager {
             CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null);
-            InputStream certificate = AppUtil.getContext().getAssets().open("Ken.cer");
+            InputStream certificate = AppUtil.getContext().getAssets().open("api.china-inno.com.cer");
             keyStore.setCertificateEntry("0", certificateFactory.generateCertificate(certificate));
             try {
                 if (certificate != null)

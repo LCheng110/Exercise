@@ -23,7 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".controller.login.LoginGuideActivity" />
-        <activity android:name=".controller.login.LoginActivity" />
+        <activity
+            android:name=".controller.login.LoginActivity"
+            android:theme="@style/SearchViewStyle" />
         <activity
             android:name=".controller.MainActivity"
             android:theme="@style/SearchViewStyle" />

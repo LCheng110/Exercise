@@ -83,4 +83,11 @@ public class AppUtil {
         return Settings.System.getString(AppUtil.getContext().getContentResolver(),
                 Settings.System.ANDROID_ID);
     }
+
+    /**
+     * 清除缓存
+     */
+    public static void clearCache() {
+        SPUtil.clear();
+    }
 }

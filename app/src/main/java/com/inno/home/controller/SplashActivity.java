@@ -3,6 +3,7 @@ package com.inno.home.controller;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.widget.ImageView;
 
@@ -77,7 +78,11 @@ public class SplashActivity extends BaseActivity {
         if (isDestroyed() || isFinishing()) {
             return;
         }
-        Navigation.showLoginGuide(context);
+        if (TextUtils.isEmpty(Session.getAccessToken())) {
+            Navigation.showLoginGuide(context);
+        } else {
+            Navigation.showMain(context);
+        }
         finish();
     }
 

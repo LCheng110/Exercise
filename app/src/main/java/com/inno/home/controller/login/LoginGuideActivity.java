@@ -9,6 +9,7 @@ import android.widget.Button;
 import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
+import com.inno.home.utils.ActivityPageManager;
 import com.inno.home.utils.EncryptUtil;
 import com.inno.home.utils.UiUtil;
 
@@ -35,7 +36,7 @@ public class LoginGuideActivity extends BaseActivity {
 
     @Override
     protected void initValue() {
-
+        ActivityPageManager.getInstance().finishAllActivityExceptOne(this.getClass());
     }
 
     @Override
@@ -70,7 +71,7 @@ public class LoginGuideActivity extends BaseActivity {
 //                builder.setSubject(getString(R.string.action_sign_in));
 //                builder.setText("哈哈哈哈哈哈或http://www.baidu.com");
 //                builder.startChooser();
-                Log.i("sss", "onClick: "+ EncryptUtil.md5("111111"));
+                Log.i("sss", "onClick: " + EncryptUtil.md5("111111"));
                 Navigation.showMain(context);
                 break;
         }

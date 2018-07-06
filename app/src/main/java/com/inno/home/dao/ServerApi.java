@@ -1,12 +1,11 @@
 package com.inno.home.dao;
 
 
-import com.inno.home.model.BaseModel;
-
 import java.util.Map;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.FieldMap;
@@ -33,20 +32,25 @@ public interface ServerApi {
 
 
     @GET()
-    Observable<BaseModel> Obget(@Url String url, @HeaderMap Map<String, String> headMap,
-                                @QueryMap Map<String, String> params);
+    Observable<ResponseBody> Obget(@Url String url, @HeaderMap Map<String, String> headMap,
+                                   @QueryMap Map<String, String> params);
 
     @FormUrlEncoded
     @POST()
-    Observable<BaseModel> Obpost(@Url String url, @HeaderMap Map<String, String> headMap,
+    Observable<ResponseBody> Obpost(@Url String url, @HeaderMap Map<String, String> headMap,
                                  @FieldMap Map<String, String> params);
 
+    @FormUrlEncoded
+    @POST()
+    Observable<ResponseBody> ObpostJson(@Url String url, @HeaderMap Map<String, String> headMap,
+                                 @Body Map<String, String> params);
+
     @PATCH()
-    Observable<BaseModel> Obpatch(@Url String url, @HeaderMap Map<String, String> headMap,
+    Observable<ResponseBody> Obpatch(@Url String url, @HeaderMap Map<String, String> headMap,
                                   @QueryMap Map<String, String> params);
 
     @DELETE()
-    Observable<BaseModel> Obdelete(@Url String url, @HeaderMap Map<String, String> headMap,
+    Observable<ResponseBody> Obdelete(@Url String url, @HeaderMap Map<String, String> headMap,
                                    @QueryMap Map<String, String> params);
 
     /**
@@ -57,7 +61,7 @@ public interface ServerApi {
      * @return
      */
     @POST()
-    Observable<BaseModel> uplodimag(@Url String url, @HeaderMap Map<String, String> headMap,
+    Observable<ResponseBody> uplodimag(@Url String url, @HeaderMap Map<String, String> headMap,
                                     @Body RequestBody Bodyb);
 
 

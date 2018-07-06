@@ -89,4 +89,10 @@ public class SPUtil {
         editor.putString(name, value);
         editor.commit();
     }
+
+    public static void clear() {
+        SharedPreferences.Editor editor = mSets.edit();
+        editor.clear();
+        editor.commit();
+    }
 }

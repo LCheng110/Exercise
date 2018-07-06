@@ -1,5 +1,6 @@
 package com.inno.home.base;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
@@ -62,5 +63,9 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         context = null;
         ActivityPageManager.getInstance().removeActivity(this);
+    }
+
+    public ProgressDialog showProgressDialog(String title, String message) {
+        return ProgressDialog.show(context, title, message, false, false);
     }
 }

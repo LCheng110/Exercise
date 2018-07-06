@@ -9,7 +9,7 @@
         <item name="android:textColorHint">@color/textColorHint</item>
         <item name="colorControlNormal">@color/colorControlNormal</item>
         <item name="colorControlActivated">@color/colorControlActivated</item>
-        <!--<item name="colorControlHighlight">@color/colorControlActivated</item>-->
+        <!--<item name="colorControlHighlight">@color/bg_mask</item>-->
         <item name="android:windowBackground">@color/appBackground</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
@@ -51,7 +51,7 @@
         <item name="android:layout_width">@dimen/login_submit_size</item>
         <item name="android:layout_height">@dimen/login_submit_size</item>
         <item name="android:layout_gravity">end</item>
-        <item name="android:enabled">true</item>
+        <item name="android:state_selected">false</item>
         <item name="android:layout_marginTop">@dimen/activity_vertical_margin</item>
         <item name="android:background">@drawable/btn_input_next</item>
     </style>

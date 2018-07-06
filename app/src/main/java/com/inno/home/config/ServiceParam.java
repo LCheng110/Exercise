@@ -8,7 +8,10 @@ public interface ServiceParam {
     String NAME_FIRST = "firstName";
     String NAME_LAST = "lastName";
     String EMAIL = "email";
+    String TYPE = "type";
+    String CODE = "code";
     String PASSWORD = "password";
+    String LOGIN_TYPE_PASSWORD = "grant_type";
 
 //    String USER_ID = "userId";
 //    String DEVICE_INFO = "deviceInfo";
