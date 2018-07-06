@@ -4,10 +4,12 @@ import com.inno.home.config.ServiceInterface;
 import com.inno.home.listen.net.NetRequestListener;
 import com.inno.home.utils.EncryptUtil;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class UserCMD {
@@ -38,5 +40,12 @@ public class UserCMD {
 
     public static void getUserInfo(Map<String, String> map, NetRequestListener requestListener) {
         ServerUtil.get(ServiceInterface.USER_INFO, map, requestListener);
+    }
+
+    public static void uploadFile(File file, NetRequestListener requestListener) {
+        RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart
+                ("file", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file))
+                .build();
+        ServerUtil.uploadFile(ServiceInterface.FILE_UPLOAD, requestBody, requestListener);
     }
 }
