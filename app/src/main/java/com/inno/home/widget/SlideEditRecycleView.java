@@ -212,7 +212,6 @@ public class SlideEditRecycleView extends RecyclerView {
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        mVelocityTracker.recycle();
     }
 
     private void initSlideStatus() {

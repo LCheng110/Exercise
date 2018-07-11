@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.transition.TransitionManager;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.inno.home.R;
@@ -20,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class DeviceControlActivity extends BaseActivity {
 
@@ -29,6 +33,8 @@ public class DeviceControlActivity extends BaseActivity {
     public static final int DEVICE_STATUS_WARN = 1;
     public static final int DEVICE_STATUS_OFFLINE = 2;
 
+    @BindView(R.id.root_view)
+    LinearLayout root_view;
     @BindView(R.id.control_status_bg)
     ConstraintLayout control_status_bg;
     @BindView(R.id.tv_control_prompt)
@@ -41,6 +47,10 @@ public class DeviceControlActivity extends BaseActivity {
     XTabLayout tab_layout;
     @BindView(R.id.vp)
     ViewPager viewPager;
+    @BindView(R.id.iv_control_switch)
+    ImageView iv_control_switch;
+    @BindView(R.id.cl_device_info_view)
+    ConstraintLayout cl_device_info_view;
     List<BaseFragment> fragmentList = new ArrayList<>();
     List<String> tabList = Arrays.asList("Contacts", "Reports");
     String deviceTitle;
@@ -109,6 +119,23 @@ public class DeviceControlActivity extends BaseActivity {
             titleBar.setBarBackground(titleColor);
             tab_layout.setBackgroundColor(titleColor);
             UiUtil.setStatusBarColor(context, titleColor);
+        }
+    }
+
+    @OnClick({R.id.iv_control_switch})
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_control_switch:
+                TransitionManager.beginDelayedTransition(root_view);
+                if (cl_device_info_view.getVisibility() == View.VISIBLE) {
+                    iv_control_switch.setImageResource(R.drawable.ic_control_show);
+                    cl_device_info_view.setVisibility(View.GONE);
+                } else {
+                    iv_control_switch.setImageResource(R.drawable.ic_control_hide);
+                    cl_device_info_view.setVisibility(View.VISIBLE);
+                }
+
+                break;
         }
     }
 }

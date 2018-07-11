@@ -2,7 +2,6 @@ package com.inno.home.controller.login;
 
 import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -10,7 +9,6 @@ import com.inno.home.Navigation;
 import com.inno.home.R;
 import com.inno.home.base.BaseActivity;
 import com.inno.home.utils.ActivityPageManager;
-import com.inno.home.utils.EncryptUtil;
 import com.inno.home.utils.UiUtil;
 
 import butterknife.BindView;
@@ -36,6 +34,7 @@ public class LoginGuideActivity extends BaseActivity {
 
     @Override
     protected void initValue() {
+        titleBar.setBarBackground(Color.TRANSPARENT);
         ActivityPageManager.getInstance().finishAllActivityExceptOne(this.getClass());
     }
 
@@ -43,14 +42,14 @@ public class LoginGuideActivity extends BaseActivity {
     protected void initView() {
         UiUtil.setTransparentStatusBar(this);
         UiUtil.setViewTransparentPadding(this, titleBar);
-        if (titleBar != null) {
-            titleBar.setRightMenuEvent(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Navigation.showLogin(context);
-                }
-            }, getString(R.string.prompt_login), 0, 0).setBarBackground(Color.TRANSPARENT);
-        }
+//        if (titleBar != null) {
+//            titleBar.setRightMenuEvent(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Navigation.showLogin(context);
+//                }
+//            }, getString(R.string.prompt_login), 0, 0).setBarBackground(Color.TRANSPARENT);
+//        }
     }
 
     @Override
@@ -71,8 +70,7 @@ public class LoginGuideActivity extends BaseActivity {
 //                builder.setSubject(getString(R.string.action_sign_in));
 //                builder.setText("哈哈哈哈哈哈或http://www.baidu.com");
 //                builder.startChooser();
-                Log.i("sss", "onClick: " + EncryptUtil.md5("111111"));
-                Navigation.showMain(context);
+                Navigation.showLogin(context);
                 break;
         }
     }

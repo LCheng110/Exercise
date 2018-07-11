@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -98,5 +99,143 @@
             </LinearLayout>
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/iv_control_switch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_control_show" />
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/cl_device_info_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:background="@drawable/shape_home_device_bg">
+
+                <TextView
+                    android:id="@+id/tv_device_name_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/padding"
+                    android:text="@string/device_info_number"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_device_version_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding"
+                    android:text="@string/device_info_version"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/tv_device_name_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_device_name_title" />
+
+                <TextView
+                    android:id="@+id/tv_device_mac_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding"
+                    android:text="@string/device_info_mac"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/tv_device_name_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_device_version_title" />
+
+                <TextView
+                    android:id="@+id/tv_device_from_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding"
+                    android:text="@string/device_info_from"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/tv_device_name_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_device_mac_title" />
+
+                <TextView
+                    android:id="@+id/tv_device_time_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/padding"
+                    android:text="@string/device_info_add_time"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_device_name_title"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_device_from_title" />
+
+                <android.support.constraint.Guideline
+                    android:id="@+id/guide"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintGuide_percent="0.5" />
+
+                <TextView
+                    android:id="@+id/tv_device_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/padding"
+                    android:text="28AB-4453"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/guide"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/tv_device_version"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding"
+                    android:text="1.0.1"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/tv_device_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_device_name" />
+
+                <TextView
+                    android:id="@+id/tv_device_mac"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding"
+                    android:text="0F:AD:FC:E3:7D:1A"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/tv_device_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_device_version" />
+
+                <TextView
+                    android:id="@+id/tv_device_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/padding"
+                    android:text="老王"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintStart_toStartOf="@+id/tv_device_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_device_mac" />
+
+                <TextView
+                    android:id="@+id/tv_device_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/activity_vertical_margin"
+                    android:padding="@dimen/padding"
+                    android:text="2018.4.1 18:00"
+                    android:textColor="@color/text_normal"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/tv_device_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_device_from" />
+            </android.support.constraint.ConstraintLayout>
+        </LinearLayout>
     </FrameLayout>
 </LinearLayout>

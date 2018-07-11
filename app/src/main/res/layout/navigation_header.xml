@@ -5,6 +5,8 @@
     android:id="@+id/user_view"
     android:layout_width="match_parent"
     android:layout_height="150dp"
+    android:paddingStart="@dimen/activity_horizontal_margin"
+    android:paddingEnd="@dimen/activity_horizontal_margin"
     android:fitsSystemWindows="true"
     tools:layout_editor_absoluteY="25dp">
 

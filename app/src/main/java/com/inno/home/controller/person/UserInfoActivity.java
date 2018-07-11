@@ -57,6 +57,8 @@ public class UserInfoActivity extends BaseActivity {
     String gender;
     String email;
     String facebookUserId;
+    String firstName;
+    String lastName;
 
     @Override
     protected int initLayout() {
@@ -109,6 +111,8 @@ public class UserInfoActivity extends BaseActivity {
                 try {
                     JSONObject object = new JSONObject(response);
                     JSONObject data = object.getJSONObject("data");
+                    firstName = data.getString("firstName");
+                    lastName = data.getString("lastName");
                     avatar = data.getString("avatar");
                     id = data.getString("id");
                     username = data.getString("username");
@@ -131,9 +135,9 @@ public class UserInfoActivity extends BaseActivity {
     }
 
     private void refreshUserInfo() {
-        ImageLoader.loadCircleImage(iv_avatar.getContext(), avatar, iv_avatar);
-        tv_content_id.setText(id);
-        tv_content_name.setText(username);
+        ImageLoader.loadCircleImage(iv_avatar.getContext(), avatar, iv_avatar, R.drawable.ic_avatar_default);
+        tv_content_id.setText(username);
+        tv_content_name.setText(String.format(getString(R.string.main_text_name_format), firstName, lastName));
         tv_content_gender.setText(gender);
         tv_content_email.setText(email);
     }

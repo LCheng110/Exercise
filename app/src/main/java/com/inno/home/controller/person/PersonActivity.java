@@ -2,6 +2,7 @@ package com.inno.home.controller.person;
 
 import android.content.DialogInterface;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.inno.home.Navigation;
@@ -10,6 +11,7 @@ import com.inno.home.base.BaseActivity;
 import com.inno.home.controller.dialog.DialogHelper;
 import com.inno.home.dao.Session;
 import com.inno.home.utils.AppUtil;
+import com.inno.home.utils.glide.ImageLoader;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -20,6 +22,8 @@ import butterknife.OnClick;
 
 public class PersonActivity extends BaseActivity {
 
+    @BindView(R.id.person_user_avatar)
+    ImageView person_user_avatar;
     @BindView(R.id.person_text_user)
     TextView person_text_user;
 
@@ -42,6 +46,7 @@ public class PersonActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        ImageLoader.loadCircleImage(context, Session.getAvatar(), person_user_avatar, R.drawable.ic_avatar_default);
         person_text_user.setText(Session.getNickName());
     }
 

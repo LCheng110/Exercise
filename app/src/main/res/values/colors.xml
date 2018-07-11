@@ -9,6 +9,7 @@
 
     <color name="appBackground">#F2F4F5</color>
     <color name="colorLine">#EFEEEE</color>
+    <color name="colorLineNavi">#323D76</color>
     <color name="bg_mask">#97000000</color>
     <color name="textColorHint">#A1A6BB</color>
     <color name="text_normal">#252525</color>

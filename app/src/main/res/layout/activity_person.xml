@@ -25,9 +25,16 @@
                 android:id="@+id/person_item_user"
                 style="@style/PersonItemStyle">
 
+                <ImageView
+                    android:id="@+id/person_user_avatar"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="center_vertical" />
+
                 <TextView
                     android:id="@+id/person_text_user"
                     style="@style/PersonTextStyle"
+                    android:layout_marginStart="50dp"
                     android:layout_gravity="center_vertical" />
 
                 <ImageView
@@ -83,7 +90,7 @@
                 android:id="@+id/sign_out"
                 style="@style/ButtonBlueStyle"
                 android:layout_marginTop="@dimen/btn_margin_top"
-                android:text="@string/prompt_sign_out" />
+                android:text="@string/prompt_logout" />
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

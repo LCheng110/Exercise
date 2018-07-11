@@ -40,7 +40,8 @@ public class NavigateUserDelegate extends BaseDelegateAdapter {
 
         @Override
         public void bind(UserModel model) {
-            ImageLoader.loadCircleImage(user_avatar.getContext(), model.userAvatar, user_avatar);
+            ImageLoader.loadCircleImage(user_avatar.getContext(), model.userAvatar, user_avatar,
+                    R.drawable.ic_avatar_default);
             user_name.setText(model.userName);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

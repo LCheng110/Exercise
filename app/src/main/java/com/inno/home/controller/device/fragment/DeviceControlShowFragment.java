@@ -9,6 +9,9 @@ import com.inno.home.adapter.DeviceControlContactAdapter;
 import com.inno.home.adapter.DeviceControlReportAdapter;
 import com.inno.home.base.BaseFragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.BindView;
 
 public class DeviceControlShowFragment extends BaseFragment {
@@ -22,6 +25,7 @@ public class DeviceControlShowFragment extends BaseFragment {
 
     private int controlShowType;
     private BaseRecycleAdapter controlShowAdapter;
+    private List<String> strings = new ArrayList<>();
 
     @Override
     protected int initLayout() {
@@ -31,13 +35,15 @@ public class DeviceControlShowFragment extends BaseFragment {
     @Override
     protected void initValue() {
         controlShowType = getArguments().getInt(CONTROL_SHOW_TYPE);
+        strings.add("laowang@gmail.com (Lao Wang)");
+        strings.add("jenywen@gmail.com (Wen sang)");
     }
 
     @Override
     protected void initView() {
         rv_contact_list.setLayoutManager(new LinearLayoutManager(getContext()));
         if (controlShowType == CONTROL_SHOW_CONTACT) {
-            controlShowAdapter = new DeviceControlContactAdapter();
+            controlShowAdapter = new DeviceControlContactAdapter(strings);
         } else {
             controlShowAdapter = new DeviceControlReportAdapter();
         }

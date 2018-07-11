@@ -8,6 +8,8 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +25,7 @@ import com.inno.home.adapter.delegate.navigation.NavigateContactDelegate;
 import com.inno.home.adapter.delegate.navigation.NavigateHomeDelegate;
 import com.inno.home.adapter.delegate.navigation.NavigateShareDelegate;
 import com.inno.home.adapter.delegate.navigation.NavigateUserDelegate;
+import com.inno.home.adapter.divide.MarginStartItemDecoration;
 import com.inno.home.base.BaseActivity;
 import com.inno.home.controller.device.DeviceTypeActivity;
 import com.inno.home.dao.Session;
@@ -76,8 +79,11 @@ public class MainActivity extends BaseActivity {
     List<HomeDeviceModel> homeDeviceModelList = new ArrayList<>();
     List<DelegateModel> menuList = new ArrayList<>();
 
+    private NavigateHomeDelegate homeDelegate;
     private HomeDeviceAdapter homeDeviceAdapter;
     private DelegateAdapter menuAdapter;
+    private ShareModel shareModel;
+    private HomeModel homeModel;
 
     @Override
     protected int initLayout() {
@@ -88,7 +94,8 @@ public class MainActivity extends BaseActivity {
     protected void initValue() {
         ActivityPageManager.getInstance().finishAllActivityExceptOne(this.getClass());
         if (homeDeviceModelList.size() == 0) {
-            homeDeviceModelList.add(new HomeDeviceModel("Everything"));
+            homeDeviceModelList.add(new HomeDeviceModel(getString(R.string.main_text_device_name_default),
+                    2));
             homeDeviceModelList.add(new HomeDeviceModel(true));
         }
         List<String> deviceNameList = new ArrayList<>();
@@ -125,13 +132,12 @@ public class MainActivity extends BaseActivity {
         //初始化设备列表
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
         rv_device_list.setLayoutManager(layoutManager);
-//        rv_device_list.addItemDecoration(new GridItemDecoration(context, R.color.white, UiUtil.dip2px(20)));
         rv_device_list.setAdapter(homeDeviceAdapter = new HomeDeviceAdapter(homeDeviceModelList));
     }
 
     @Override
     protected void initData() {
-        HomeModel homeModel = new HomeModel();
+        homeModel = new HomeModel();
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("sss"));
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("aaa"));
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("bbb"));
@@ -139,10 +145,6 @@ public class MainActivity extends BaseActivity {
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("bbb"));
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("bbb"));
 
-        menuList.add(new UserModel());
-        menuList.add(homeModel);
-        menuList.add(new ShareModel());
-        menuList.add(new ContactModel());
         String lastHomeName = Session.getHomeName();
         int index = 0;
         if (!TextUtils.isEmpty(lastHomeName)) {
@@ -153,15 +155,24 @@ public class MainActivity extends BaseActivity {
                 }
             }
         }
+        shareModel = new ShareModel(String.format(getString(R.string.main_text_share_format),
+                homeModel.homeItemModels.get(index).homeName));
+        menuList.add(new UserModel());
+        menuList.add(homeModel);
+        menuList.add(shareModel);
+        menuList.add(new ContactModel());
         nv_menu.setLayoutManager(new LinearLayoutManager(this));
         AdapterDelegateManager delegateManager = new AdapterDelegateManager();
         delegateManager.addDelegate(new NavigateUserDelegate());
-        delegateManager.addDelegate(new NavigateHomeDelegate(index));
+        delegateManager.addDelegate(homeDelegate = new NavigateHomeDelegate(index));
         delegateManager.addDelegate(new NavigateShareDelegate());
         delegateManager.addDelegate(new NavigateContactDelegate());
         menuAdapter = new DelegateAdapter();
         menuAdapter.setDelegateManager(delegateManager);
         menuAdapter.setDataList(menuList);
+        MarginStartItemDecoration itemDecoration = new MarginStartItemDecoration(context, R.color.colorLineNavi,
+                getResources().getDimensionPixelSize(R.dimen.line_width));
+        nv_menu.addItemDecoration(itemDecoration);
         nv_menu.setAdapter(menuAdapter);
         getUserInfo();
     }
@@ -184,8 +195,16 @@ public class MainActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(HomeSelectEvent event) {
+        for (HomeModel.HomeItemModel homeItemModel : homeModel.homeItemModels) {
+            if (event.homeItemModel.homeName.equals(homeItemModel.homeName)) {
+                homeDelegate.setSelectHomePosition(homeModel.homeItemModels.indexOf(homeItemModel));
+            }
+        }
         toolbar_title.setText(event.homeItemModel.homeName);
         drawerDevice.closeDrawers();
+        shareModel.shareName = String.format(getString(R.string.main_text_share_format),
+                event.homeItemModel.homeName);
+        menuAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -210,6 +229,17 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if (drawerDevice.isDrawerOpen(Gravity.START)) {
+                drawerDevice.closeDrawers();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
     private void getUserInfo() {
         UserCMD.getUserInfo(new HashMap<String, String>(), new NetRequestListener() {
             @Override
@@ -218,8 +248,11 @@ public class MainActivity extends BaseActivity {
                     JSONObject object = new JSONObject(response);
                     JSONObject data = object.getJSONObject("data");
                     String avatar = data.getString("avatar");
-                    long id = data.getLong("id");
-                    String username = data.getString("username");
+                    String id = data.getString("username");
+                    String firstName = data.getString("firstName");
+                    String lastName = data.getString("lastName");
+                    String username = String.format(getString(R.string.main_text_name_format), firstName, lastName);
+                    Session.setEmail(data.getString("email"));
                     Session.setAvatar(avatar);
                     Session.setUserId(id);
                     Session.setNickName(username);

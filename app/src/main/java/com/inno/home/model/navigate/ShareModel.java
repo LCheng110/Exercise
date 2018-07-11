@@ -10,4 +10,9 @@ public class ShareModel extends DelegateModel {
     public ShareModel() {
         ITEM_TYPE = ITEM_TYPE_SHARE;
     }
+
+    public ShareModel(String shareName) {
+        this.shareName = shareName;
+        ITEM_TYPE = ITEM_TYPE_SHARE;
+    }
 }

@@ -9,7 +9,7 @@ public interface ServiceInterface {
 
     String USER_VERIFY_CODE = "passport/verification";
     String USER_VERIFY_CODE_ENSURE = "passport/verification/verify";
-    String USER_REGISTER = "passport/account/register";
+    String USER_REGISTER = "passport/account";
     String USER_LOGIN = "auth/oauth/token";
     String USER_INFO = "passport/account/me";
     String FILE_UPLOAD = "file";

@@ -117,31 +117,7 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
     public void onSubmit(View view) {
         switch (view.getId()) {
             case R.id.btn_submit_login:
-                Map<String, String> map = new HashMap<>();
-                map.put(ServiceParam.LOGIN_TYPE_PASSWORD, "other");
-                map.put(ServiceParam.EMAIL, mLoginScene.getEmail());
-                map.put(ServiceParam.PASSWORD, mLoginScene.getPassword());
-                final ProgressDialog loginDialog = showProgressDialog("", "正在登陆中，请稍后~");
-                UserCMD.login(map, new NetRequestListener() {
-                    @Override
-                    public void onSuccess(String response) {
-                        loginDialog.cancel();
-                        try {
-                            JSONObject object = new JSONObject(response);
-                            Session.seAccessToken(object.getString(Session.SP_KEY_ACCESS_TOKEN));
-                            Session.seRefreshToken(object.getString(Session.SP_KEY_REFRESH_TOKEN));
-                            Navigation.showMain(context);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            ToastUtil.showToast("登陆失败，参数异常");
-                        }
-                    }
-
-                    @Override
-                    public void onError(Throwable throwable) {
-                        loginDialog.cancel();
-                    }
-                });
+                login(mLoginScene.getEmail(), mLoginScene.getPassword());
                 break;
             case R.id.btn_submit_name:
                 TransitionManager.go(mEmailScene, mSceneTransition);
@@ -169,101 +145,61 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
                 });
                 break;
             case R.id.btn_submit_password:
-                final JSONObject verifyObject = new JSONObject();
                 final JSONObject registerObject = new JSONObject();
+                final ProgressDialog registerDialog = showProgressDialog("", "请稍后~");
                 try {
-                    verifyObject.put(ServiceParam.EMAIL, mEmailScene.getEmail());
-                    verifyObject.put(ServiceParam.TYPE, UserCMD.REGISTER);
-                    verifyObject.put(ServiceParam.CODE, mSetPasswordScene.getVaildCode());
+                    registerObject.put(ServiceParam.NAME_FIRST, mRegisterNameScene.getFirstName());
+                    registerObject.put(ServiceParam.NAME_LAST, mRegisterNameScene.getLastName());
+                    registerObject.put(ServiceParam.EMAIL, mEmailScene.getEmail());
+                    registerObject.put(ServiceParam.PASSWORD, mSetPasswordScene.getPassword());
+                    registerObject.put(ServiceParam.CODE, mSetPasswordScene.getVaildCode());
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                final ProgressDialog registerDialog = showProgressDialog("", "请稍后~");
-                UserCMD.verifyCodeEnsure(verifyObject.toString(), new NetRequestListener() {
+                UserCMD.register(registerObject.toString(), new NetRequestListener() {
                     @Override
                     public void onSuccess(String response) {
-                        try {
-                            registerObject.put(ServiceParam.NAME_FIRST, mRegisterNameScene.getFirstName());
-                            registerObject.put(ServiceParam.NAME_LAST, mRegisterNameScene.getLastName());
-                            registerObject.put(ServiceParam.EMAIL, mEmailScene.getEmail());
-                            registerObject.put(ServiceParam.PASSWORD, mSetPasswordScene.getPassword());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        UserCMD.register(registerObject.toString(), new NetRequestListener() {
-                            @Override
-                            public void onSuccess(String response) {
-                                registerDialog.cancel();
-                                Navigation.showLogin(context);
-                                finish();
-                            }
-
-                            @Override
-                            public void onError(Throwable throwable) {
-                                registerDialog.cancel();
-                            }
-                        });
+                        registerDialog.cancel();
+                        login(mEmailScene.getEmail(), mSetPasswordScene.getPassword());
                     }
 
                     @Override
                     public void onError(Throwable throwable) {
-
+                        registerDialog.cancel();
                     }
                 });
                 break;
         }
     }
 
-    /**
-     * Attempts to sign in or register the account specified by the login form.
-     * If there are form errors (invalid email, missing fields, etc.), the
-     * errors are presented and no actual login attempt is made.
-     */
-//    private void attemptLogin() {
-//        if (mAuthTask != null) {
-//            return;
-//        }
-//
-//        // Reset errors.
-//        mEmailEditView.setError(null);
-//        mPasswordView.setError(null);
-//
-//        // Store values at the time of the login attempt.
-//        String email = mEmailEditView.getText().toString();
-//        String password = mPasswordView.getText().toString();
-//
-//        boolean cancel = false;
-//        View focusView = null;
-//
-//        // Check for a valid password, if the user entered one.
-//        if (!TextUtils.isEmpty(password) && !isPasswordValid(password)) {
-//            mPasswordView.setError(getString(R.string.error_invalid_password));
-//            focusView = mPasswordView;
-//            cancel = true;
-//        }
-//
-//        // Check for a valid email address.
-//        if (TextUtils.isEmpty(email)) {
-//            mEmailEditView.setError(getString(R.string.error_field_required));
-//            focusView = mEmailEditView;
-//            cancel = true;
-//        } else if (!isEmailValid(email)) {
-//            mEmailEditView.setError(getString(R.string.error_invalid_email));
-//            focusView = mEmailEditView;
-//            cancel = true;
-//        }
-//
-//        if (cancel) {
-//            // There was an error; don't attempt login and focus the first
-//            // form field with an error.
-//            focusView.requestFocus();
-//        } else {
-//            // Show a progress spinner, and kick off a background task to
-//            // perform the user login attempt.
-////            showProgress(true);
-//            mAuthTask = new UserLoginTask(email, password);
-//            mAuthTask.execute((Void) null);
-//        }
-//    }
+    private void login(String email, String password) {
+        Map<String, String> map = new HashMap<>();
+        map.put(ServiceParam.LOGIN_TYPE_PASSWORD, "other");
+        map.put(ServiceParam.EMAIL, email);
+        map.put(ServiceParam.PASSWORD, password);
+        final ProgressDialog loginDialog = showProgressDialog("", "正在登陆中，请稍后~");
+        UserCMD.login(map, new NetRequestListener() {
+            @Override
+            public void onSuccess(String response) {
+                loginDialog.cancel();
+                try {
+                    JSONObject object = new JSONObject(response);
+                    Session.seAccessToken(object.getString(Session.SP_KEY_ACCESS_TOKEN));
+                    Session.seRefreshToken(object.getString(Session.SP_KEY_REFRESH_TOKEN));
+                    Navigation.showMain(context);
+                    finish();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    ToastUtil.showToast("登陆失败，参数异常");
+                }
+            }
+
+            @Override
+            public void onError(Throwable throwable) {
+                loginDialog.cancel();
+            }
+        });
+    }
+
 }
 

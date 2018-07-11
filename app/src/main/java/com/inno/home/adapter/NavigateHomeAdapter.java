@@ -145,5 +145,6 @@ public class NavigateHomeAdapter extends RecyclerView.Adapter<NavigateHomeAdapte
         for (int i = 0; i < itemModelList.size(); i++) {
             itemModelList.get(i).isSelected = position == i;
         }
+        notifyDataSetChanged();
     }
 }

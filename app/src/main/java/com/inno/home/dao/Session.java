@@ -15,6 +15,7 @@ public class Session {
     private static final String SP_KEY_HOME_NAME = "home_name";                                 //SP key 记录Home的名称
     private static final String SP_KEY_USER_ID = "id";                  //SP key 记录userId
     private static final String SP_KEY_AVATAR = "avatar";                               //SP key 记录头像
+    private static final String SP_KEY_EMAIL = "email";                               //SP key 记录邮箱
     private static final String SP_KEY_NICK_NAME = "nickName";                          //SP key 记录昵称
 
     public static String getAccessToken() {
@@ -33,16 +34,20 @@ public class Session {
         SPUtil.setString(SP_KEY_REFRESH_TOKEN, token);
     }
 
-    public static long getUserId() {
-        try {
-            return SPUtil.getLong(SP_KEY_USER_ID);
-        } catch (Exception e) {
-            return (long) SPUtil.getInt(SP_KEY_USER_ID);
-        }
+    public static String getUserId() {
+        return SPUtil.getString(SP_KEY_USER_ID);
     }
 
-    public static void setUserId(long userId) {
-        SPUtil.setLong(SP_KEY_USER_ID, userId);
+    public static void setUserId(String userId) {
+        SPUtil.setString(SP_KEY_USER_ID, userId);
+    }
+
+    public static String getEmail() {
+        return SPUtil.getString(SP_KEY_EMAIL);
+    }
+
+    public static void setEmail(String email) {
+        SPUtil.setString(SP_KEY_EMAIL, email);
     }
 
     public static String getAvatar() {

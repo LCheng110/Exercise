@@ -69,10 +69,14 @@ public class NavigateHomeDelegate extends BaseDelegateAdapter {
                 @Override
                 public void onItemClick(View view, int position) {
                     homeAdapter.selectHome(position);
-                    EventBus.getDefault().post(new HomeSelectEvent(homeModel.homeItemModels.get(position)));
+                    EventBus.getDefault().post(new HomeSelectEvent(homeModel.homeItemModels.get(position), position));
                     homeAdapter.notifyDataSetChanged();
                 }
             });
         }
+    }
+
+    public void setSelectHomePosition(int selectHomePosition) {
+        this.selectHomePosition = selectHomePosition;
     }
 }

@@ -43,7 +43,9 @@
         <activity android:name=".controller.device.ProductTypeActivity" />
         <activity android:name=".controller.device.DeviceListActivity" />
         <activity android:name=".controller.device.ProductConnectActivity" />
-        <activity android:name=".controller.device.DeviceControlActivity" />
+        <activity
+            android:name=".controller.device.DeviceControlActivity"
+            android:windowSoftInputMode="stateHidden|stateAlwaysHidden" />
         <activity android:name=".controller.person.about.AboutContentActivity" />
     </application>
 

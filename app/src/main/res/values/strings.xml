@@ -3,8 +3,8 @@
 
     <!-- Strings related to login -->
     <string name="login_copyright">The creation or login account means that you \n agree to our User Agreement and Privacy Policy</string>
-    <string name="prompt_login">Log in</string>
-    <string name="prompt_logout">Log out</string>
+    <string name="prompt_login">Log In</string>
+    <string name="prompt_logout">Log Out</string>
     <string name="prompt_sign_out">Sign out</string>
     <string name="prompt_register_name">What is your name?</string>
     <string name="prompt_register_email">Your Email Address</string>
@@ -28,6 +28,8 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email completions."</string>
 
     <!-- Strings related to main -->
+    <string name="main_text_name_format">%1$s %2$s</string>
+    <string name="main_text_device_name_default">Everything</string>
     <string name="main_text_title">Home</string>
     <string name="main_text_language">Language</string>
     <string name="main_text_about">About</string>
@@ -35,6 +37,7 @@
     <string name="main_text_home">Homes</string>
     <string name="main_text_home_add">Add Home</string>
     <string name="main_text_share">Shared Users</string>
+    <string name="main_text_share_format">for “%1$s”</string>
     <string name="main_text_contact">Contact Us</string>
     <string name="main_text_device_add">Create</string>
     <string name="main_device_num_null">No devices</string>
@@ -54,6 +57,13 @@
     <string name="device_status_online">Online</string>
     <string name="device_status_alarm">Alarm</string>
     <string name="device_status_offline">Offline</string>
+    <string name="device_contact_format">%1$s (%2$s)</string>
+    <string name="device_report_format">%1$s:%2$s.</string>
+    <string name="device_info_number">Device Number</string>
+    <string name="device_info_version">Firmware Version</string>
+    <string name="device_info_mac">WiFi MAC Address</string>
+    <string name="device_info_from">Added By</string>
+    <string name="device_info_add_time">Added At</string>
 
     <!-- Strings related to Product -->
     <string name="product_text_title">Categories</string>

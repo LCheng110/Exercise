@@ -3,13 +3,16 @@ package com.inno.home.controller.login.scene;
 import android.content.Context;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
 import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,6 +29,7 @@ public class SetPasswordScene extends SubmitBaseScene {
     private TextView mSetPasswordPromptView;
     private EditText mCodeEditView;
     private EditText mSetPasswordEditView;
+    private Button mSubmitButton;
 
     @NonNull
     public static SetPasswordScene getSceneForLayout(@NonNull ViewGroup sceneRoot, @LayoutRes int layoutId,
@@ -61,7 +65,8 @@ public class SetPasswordScene extends SubmitBaseScene {
                 mSetPasswordEditView.setSelection(mSetPasswordEditView.getText().length());
             }
         });
-        mSceneView.findViewById(R.id.btn_submit_password).setOnClickListener(new View.OnClickListener() {
+        mSubmitButton = mSceneView.findViewById(R.id.btn_submit_password);
+        mSubmitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (TextUtils.isEmpty(mCodeEditView.getText().toString())) {
@@ -73,6 +78,34 @@ public class SetPasswordScene extends SubmitBaseScene {
                 } else {
                     submitListener.onSubmit(view);
                 }
+            }
+        });
+        mCodeEditView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mSubmitButton.setSelected(canSubmitPassword());
+            }
+        });
+        mSetPasswordEditView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                mSubmitButton.setSelected(canSubmitPassword());
             }
         });
     }
@@ -87,5 +120,11 @@ public class SetPasswordScene extends SubmitBaseScene {
 
     public String getPassword() {
         return EncryptUtil.md5(mSetPasswordEditView.getText().toString());
+    }
+
+    private boolean canSubmitPassword() {
+        boolean firstNameNotNull = mCodeEditView.getText().length() > 0;
+        boolean secondNameNotNull = mSetPasswordEditView.getText().length() > 0;
+        return firstNameNotNull && secondNameNotNull;
     }
 }

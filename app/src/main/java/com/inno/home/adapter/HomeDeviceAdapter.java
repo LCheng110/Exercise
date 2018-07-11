@@ -77,11 +77,11 @@ public class HomeDeviceAdapter extends RecyclerView.Adapter<HomeDeviceAdapter.De
                 cl_device_show_view.setVisibility(View.VISIBLE);
                 iv_device_add.setVisibility(View.GONE);
                 tv_device_group.setText(modelList.get(position).deviceGroupName);
-                if (modelList.get(position).deviceItemModelList.size() == 0) {
+                if (modelList.get(position).deviceNum == 0) {
                     tv_device_num.setText(R.string.main_device_num_null);
                 } else {
                     tv_device_num.setText(String.format(tv_device_num.getContext().getString(R.string.main_device_num_format),
-                            modelList.get(position).deviceItemModelList.size()));
+                            modelList.get(position).deviceNum));
                 }
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
