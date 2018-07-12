@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.inno.home.R;
 import com.inno.home.config.ServiceCode;
+import com.inno.home.config.ServiceInterface;
 import com.inno.home.listen.net.NetRequestListener;
 import com.inno.home.utils.AppUtil;
 import com.inno.home.utils.NetWorkUtil;
@@ -82,6 +83,14 @@ public class ServerUtil {
     }
 
     /**
+     * PATCH请求
+     */
+    public static void patch(String url,
+                             RequestBody Body, NetRequestListener requestListener) {
+        request(REQUEST_TYPE_PATCH, url, Body, null, null, requestListener);
+    }
+
+    /**
      * DELETE请求
      */
     public static void delete(String url,
@@ -145,6 +154,9 @@ public class ServerUtil {
         if (headMap != null) {
             newHeadMap.putAll(headMap);
         }
+        if (url.endsWith(ServiceInterface.FILE_UPLOAD)) {
+            newHeadMap.remove("Content-Type");
+        }
         switch (requestType) {
             case REQUEST_TYPE_GET:
                 ServerManager.getApi().Obget(url, newHeadMap, newMap)
@@ -154,7 +166,7 @@ public class ServerUtil {
                 break;
             case REQUEST_TYPE_POST:
                 if (null != Body) {
-                    ServerManager.getApi().uplodimag(url, newHeadMap, Body)
+                    ServerManager.getApi().uplodBody(url, newHeadMap, Body)
                             .subscribeOn(Schedulers.io())
                             .observeOn(AndroidSchedulers.mainThread())
                             .subscribe(observer);
@@ -166,10 +178,17 @@ public class ServerUtil {
                 }
                 break;
             case REQUEST_TYPE_PATCH:
-                ServerManager.getApi().Obpatch(url, newHeadMap, newMap)
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(observer);
+                if (null != Body) {
+                    ServerManager.getApi().patchBody(url, newHeadMap, Body)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(observer);
+                } else {
+                    ServerManager.getApi().Obpatch(url, newHeadMap, newMap)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(observer);
+                }
                 break;
             case REQUEST_TYPE_DELETE:
                 ServerManager.getApi().Obdelete(url, newHeadMap, newMap)
@@ -219,7 +238,7 @@ public class ServerUtil {
     }
 
     public static void addPublicHead(Map<String, String> newHeadMap) {
-        newHeadMap.put("content-type", "application/json"); // ;charset=utf-8
+        newHeadMap.put("Content-Type", "application/json"); // ;charset=utf-8
         newHeadMap.put("charset", "utf-8");
         newHeadMap.put("version", AppUtil.getAppVersion(AppUtil.getContext()));
         if (!TextUtils.isEmpty(Session.getAccessToken())) {

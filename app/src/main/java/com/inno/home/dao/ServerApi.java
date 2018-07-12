@@ -4,6 +4,7 @@ package com.inno.home.dao;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import retrofit2.http.Body;
@@ -14,6 +15,7 @@ import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import retrofit2.http.QueryMap;
 import retrofit2.http.Url;
 
@@ -53,16 +55,20 @@ public interface ServerApi {
     Observable<ResponseBody> Obdelete(@Url String url, @HeaderMap Map<String, String> headMap,
                                    @QueryMap Map<String, String> params);
 
+    @POST()
+    Observable<ResponseBody> uplodBody(@Url String url, @HeaderMap Map<String, String> headMap,
+                                       @Body RequestBody Bodyb);
+
+    @PATCH()
+    Observable<ResponseBody> patchBody(@Url String url, @HeaderMap Map<String, String> headMap,
+                                       @Body RequestBody Bodyb);
+
     /**
      * 上传图片
-     *
-     * @param url
-     * @param Bodyb
-     * @return
      */
     @POST()
-    Observable<ResponseBody> uplodimag(@Url String url, @HeaderMap Map<String, String> headMap,
-                                    @Body RequestBody Bodyb);
+    Observable<ResponseBody> uplodImage(@Url String url, @HeaderMap Map<String, String> headMap,
+                                        @Part MultipartBody.Part file);
 
 
 }

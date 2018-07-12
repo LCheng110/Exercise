@@ -7,6 +7,7 @@ package com.inno.home.config;
 public interface ServiceParam {
     String NAME_FIRST = "firstName";
     String NAME_LAST = "lastName";
+    String AVATAR = "avatar";
     String EMAIL = "email";
     String TYPE = "type";
     String CODE = "code";

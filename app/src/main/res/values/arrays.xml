@@ -11,6 +11,11 @@
         <item>@string/person_text_password</item>
     </string-array>
 
+    <string-array name="user_gender">
+        <item>@string/person_text_male</item>
+        <item>@string/person_text_female</item>
+    </string-array>
+
     <string-array name="about_item">
         <item>@string/about_title_us</item>
         <item>@string/about_title_agreement</item>

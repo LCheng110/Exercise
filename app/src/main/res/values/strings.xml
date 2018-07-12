@@ -92,6 +92,10 @@
 Inno is established in the year of 2008 and located in Ningbo city the best developing manufacture area in China. Inno owns about 100 professional employees to contribute themselves to customers’ satisfaction.
         \n\n
 Inno current products are PIR Motion Alarm, Burglar Alarm, Door Alarm, Window Alarm,  Personal Alarm, Water Leak Alarm, Alarm Lock, Dummy Camera etc.</string>
+    <string name="person_text_camera">Camera</string>
+    <string name="person_text_album">Album</string>
+    <string name="person_text_male">Male</string>
+    <string name="person_text_female">Female</string>
 
     <!-- Strings related to about -->
     <string name="about_title_us">About Us</string>
@@ -101,13 +105,15 @@ Inno current products are PIR Motion Alarm, Burglar Alarm, Door Alarm, Window Al
 
     <!-- Strings related to dialog -->
     <string name="prompt_modify_email">Please fill in the original password before changing the email.</string>
-    <string name="text_sure">sure</string>
-    <string name="text_cancel">cancel</string>
+    <string name="text_sure">Sure</string>
+    <string name="text_cancel">Cancel</string>
     <string name="text_submit">Submit</string>
     <string name="text_net_no">网络错误，请重试</string>
     <string name="text_sign_out">是否退出登陆？</string>
     <string name="text_version_update">是否进行版本更新？</string>
     <string name="save">Save</string>
+    <string name="upload_error">Upload Error</string>
+    <string name="loading">Loading……</string>
 
     <string name="format_num">%1$d/%2$d</string>
 

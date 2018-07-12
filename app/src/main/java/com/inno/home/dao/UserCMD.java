@@ -1,5 +1,6 @@
 package com.inno.home.dao;
 
+import com.inno.home.config.Config;
 import com.inno.home.config.ServiceInterface;
 import com.inno.home.listen.net.NetRequestListener;
 import com.inno.home.utils.EncryptUtil;
@@ -42,10 +43,15 @@ public class UserCMD {
         ServerUtil.get(ServiceInterface.USER_INFO, map, requestListener);
     }
 
+    public static void uploadUserInfo(String json, NetRequestListener requestListener) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
+        ServerUtil.patch(ServiceInterface.USER_REGISTER, requestBody, requestListener);
+    }
+
     public static void uploadFile(File file, NetRequestListener requestListener) {
         RequestBody requestBody = new MultipartBody.Builder().setType(MultipartBody.FORM).addFormDataPart
                 ("file", file.getName(), RequestBody.create(MediaType.parse("multipart/form-data"), file))
                 .build();
-        ServerUtil.uploadFile(ServiceInterface.FILE_UPLOAD, requestBody, requestListener);
+        ServerUtil.uploadFile(Config.SERVICE_FILE_ADDRESS + ServiceInterface.FILE_UPLOAD, requestBody, requestListener);
     }
 }

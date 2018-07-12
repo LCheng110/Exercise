@@ -2,6 +2,7 @@ package com.inno.home.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -25,12 +26,14 @@ public abstract class BaseActivity extends AppCompatActivity {
     @BindView(R.id.title_bar)
     public UCTitleBar titleBar;
     protected Context context;
+    protected ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(initLayout());
         context = this;
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
         ActivityPageManager.getInstance().addActivity(this);
         if (titleBar != null) {
@@ -66,6 +69,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     public ProgressDialog showProgressDialog(String title, String message) {
-        return ProgressDialog.show(context, title, message, false, false);
+        return progressDialog = ProgressDialog.show(context, title, message, false, false);
+    }
+
+    public ProgressDialog showProgressDialogCancelable(String title, String message) {
+        return progressDialog = ProgressDialog.show(context, title, message, false, true);
+    }
+
+    public void cancelProgressDialog() {
+        if (progressDialog != null) {
+            progressDialog.cancel();
+        }
     }
 }
