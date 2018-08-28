@@ -120,6 +120,8 @@ public class UserInfoActivity extends BaseActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.i("sss", "onClick: " + which);
+                                gender = which == 0 ? "Male" : "Female";
+                                refreshUserInfo();
                             }
                         })
                         .show();
@@ -221,6 +223,7 @@ public class UserInfoActivity extends BaseActivity {
         UserCMD.getUserInfo(new HashMap<String, String>(), new NetRequestListener() {
             @Override
             public void onSuccess(String response) {
+                cancelProgressDialog();
                 try {
                     JSONObject object = new JSONObject(response);
                     JSONObject data = object.getJSONObject("data");
@@ -229,20 +232,22 @@ public class UserInfoActivity extends BaseActivity {
                     avatar = data.getString("avatar");
                     id = data.getString("id");
                     username = data.getString("username");
-                    gender = data.getString("gender");
                     email = data.getString("email");
-                    facebookUserId = data.getString("facebookUserId");
+//                    gender = data.getString("gender");
+//                    facebookUserId = data.getString("facebookUserId");
                     refreshUserInfo();
                 } catch (JSONException e) {
                     e.printStackTrace();
-                    ToastUtil.showToast("初始化用户信息失败");
+                    ToastUtil.showToast(R.string.toast_init_error);
                     finish();
                 }
             }
 
             @Override
             public void onError(Throwable throwable) {
-
+                cancelProgressDialog();
+                ToastUtil.showToast(R.string.toast_init_error);
+                finish();
             }
         });
     }

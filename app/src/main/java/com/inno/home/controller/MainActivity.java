@@ -82,8 +82,9 @@ public class MainActivity extends BaseActivity {
     private NavigateHomeDelegate homeDelegate;
     private HomeDeviceAdapter homeDeviceAdapter;
     private DelegateAdapter menuAdapter;
-    private ShareModel shareModel;
+    private UserModel userModel;
     private HomeModel homeModel;
+    private ShareModel shareModel;
 
     @Override
     protected int initLayout() {
@@ -137,6 +138,9 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initData() {
+        userModel = new UserModel();
+        userModel.userName = Session.getNickName();
+        userModel.userAvatar = Session.getAvatar();
         homeModel = new HomeModel();
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("sss"));
         homeModel.homeItemModels.add(new HomeModel.HomeItemModel("aaa"));
@@ -157,7 +161,7 @@ public class MainActivity extends BaseActivity {
         }
         shareModel = new ShareModel(String.format(getString(R.string.main_text_share_format),
                 homeModel.homeItemModels.get(index).homeName));
-        menuList.add(new UserModel());
+        menuList.add(userModel);
         menuList.add(homeModel);
         menuList.add(shareModel);
         menuList.add(new ContactModel());

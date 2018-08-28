@@ -156,18 +156,33 @@ public class LoginActivity extends BaseActivity implements SubmitBaseScene.OnSub
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                UserCMD.register(registerObject.toString(), new NetRequestListener() {
-                    @Override
-                    public void onSuccess(String response) {
-                        registerDialog.cancel();
-                        login(mEmailScene.getEmail(), mSetPasswordScene.getPassword());
-                    }
+                if (mViewFlag == INPUT_VIEW_FLAG_REGISTER) {
+                    UserCMD.register(registerObject.toString(), new NetRequestListener() {
+                        @Override
+                        public void onSuccess(String response) {
+                            registerDialog.cancel();
+                            login(mEmailScene.getEmail(), mSetPasswordScene.getPassword());
+                        }
 
-                    @Override
-                    public void onError(Throwable throwable) {
-                        registerDialog.cancel();
-                    }
-                });
+                        @Override
+                        public void onError(Throwable throwable) {
+                            registerDialog.cancel();
+                        }
+                    });
+                } else if (mViewFlag == INPUT_VIEW_FLAG_PASSWORD) {
+                    UserCMD.resetPassword(registerObject.toString(), new NetRequestListener() {
+                        @Override
+                        public void onSuccess(String response) {
+                            registerDialog.cancel();
+                            login(mEmailScene.getEmail(), mSetPasswordScene.getPassword());
+                        }
+
+                        @Override
+                        public void onError(Throwable throwable) {
+                            registerDialog.cancel();
+                        }
+                    });
+                }
                 break;
         }
     }

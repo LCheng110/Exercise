@@ -32,6 +32,11 @@ public class UserCMD {
         ServerUtil.uploadFile(ServiceInterface.USER_REGISTER, requestBody, requestListener);
     }
 
+    public static void resetPassword(String json, NetRequestListener requestListener) {
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), json);
+        ServerUtil.uploadFile(ServiceInterface.USER_PASSWORD_RESET, requestBody, requestListener);
+    }
+
     public static void login(Map<String, String> map, NetRequestListener requestListener) {
         Map<String, String> head = new HashMap<>();
         head.put("Authorization", "Basic " + EncryptUtil.getBase64("app:qweR0505").trim());

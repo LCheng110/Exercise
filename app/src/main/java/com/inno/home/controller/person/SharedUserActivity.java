@@ -1,5 +1,6 @@
 package com.inno.home.controller.person;
 
+import android.graphics.Color;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,14 @@ public class SharedUserActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        if (titleBar != null) {
+            titleBar.setRightMenuEvent(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            }, getString(R.string.text_invite), Color.parseColor("#930db2"), 15);
+        }
         rv_shared_user_list.setLayoutManager(new LinearLayoutManager(context));
         rv_shared_user_list.setAdapter(new SharedUserAdapter());
         rv_invited_list.setLayoutManager(new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false));
